@@ -1,0 +1,55 @@
+{
+  "name": "studningsbankinn-api",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.16.3",
+    "npm": "6.9.0"
+  },
+  "description": "Stuðningsbankinn",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "test": "echo notest",
+    "tdd": "mocha ./test/ --reporter dot --watch",
+    "lint": "eslint . --fix",
+    "ci": "npm run lint && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lidtaek/studningsbankinn-api.git"
+  },
+  "author": "Liðtæk <bergur@bergur.is>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lidtaek/studningsbankinn-api/issues"
+  },
+  "homepage": "https://github.com/lidtaek/studningsbankinn-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie": "^0.4.0",
+    "cors": "^2.8.5",
+    "date-fns": "^2.11.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-sslify": "^1.2.0",
+    "helmet": "^4.3.1",
+    "heroku-logger": "^0.3.3",
+    "pg": "^8.5.1",
+    "pg-parameterize": "^2.0.2",
+    "redis": "^3.0.2",
+    "superagent": "^6.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^7.17.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "husky": "^4.2.3",
+    "mocha": "^8.2.1",
+    "supertest": "^6.0.1"
+  }
+}
