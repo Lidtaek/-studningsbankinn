@@ -7,7 +7,7 @@ const enforceHttps = require('express-sslify').HTTPS
 const cors = require('cors')
 
 function createApp (isProduction) {
-   const app = express()
+  const app = express()
 
   if (isProduction) {
     app.use(enforceHttps({
