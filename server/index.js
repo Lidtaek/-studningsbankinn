@@ -20,6 +20,6 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const app = createApp(isProduction)
 
-app.use('/places', makePlacesContext())
+app.use('/places', makePlacesContext(pgPool))
 
 app.listen(process.env.PORT || 3001)

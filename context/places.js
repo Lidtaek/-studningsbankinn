@@ -1,9 +1,9 @@
 
-function makePlacesContext () {
+function makePlacesContext (db) {
   const makeSelectPlaces = require('../repo/places/select')
   const makePlaceRouter = require('../routes/places')
 
-  const selectPlaces = makeSelectPlaces()
+  const selectPlaces = makeSelectPlaces(db)
   return makePlaceRouter(selectPlaces)
 }
 
