@@ -1,6 +1,7 @@
 function makeSelectPlaces (db) {
   return (options) => {
     const params = []
+
     let sql = `
       SELECT
         id,

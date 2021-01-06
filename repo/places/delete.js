@@ -1,16 +1,14 @@
-function makeInsertPlaces (db) {
+function makeDeletePlaces (db) {
   return (place) => {
     const params = [
-      place.name
+      place.id
     ]
 
     const sql = `
-      INSERT INTO places(
-       name
-      )
-      VALUES (
-        $1
-      )
+      DELETE FROM
+        places
+      WHERE
+        id = $1
       RETURNING
         id`
 
@@ -18,4 +16,4 @@ function makeInsertPlaces (db) {
   }
 }
 
-module.exports = makeInsertPlaces
+module.exports = makeDeletePlaces
