@@ -1,15 +1,23 @@
 function makeSelectPlaces (db) {
-  return () => {
-    const sql = `
+  return (options) => {
+    const params = []
+    let sql = `
       SELECT
         id,
         name
       FROM
         places
+      WHERE
+        1 = 1`
+
+    if (options.id) {
+      sql += 'AND id = $1'
+      params.push(options.id)
+    }
+
+    sql += `
       ORDER BY
         name ASC`
-
-    const params = []
 
     return db.query(sql, params).then(res => res.rows)
   }
