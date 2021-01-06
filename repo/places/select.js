@@ -5,7 +5,12 @@ function makeSelectPlaces (db) {
     let sql = `
       SELECT
         id,
-        name
+        name,
+        description,
+        website,
+        phone,
+        address,
+        postcode
       FROM
         places
       WHERE
