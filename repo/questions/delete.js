@@ -1,12 +1,12 @@
-function makeDeletePlaces (db) {
-  return (place) => {
+function makeDeleteQuestions (db) {
+  return (question) => {
     const params = [
-      place.id
+      question.id
     ]
 
     const sql = `
       DELETE FROM
-        places
+        questions
       WHERE
         id = $1
       RETURNING
@@ -18,4 +18,4 @@ function makeDeletePlaces (db) {
   }
 }
 
-module.exports = makeDeletePlaces
+module.exports = makeDeleteQuestions

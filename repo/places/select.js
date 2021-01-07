@@ -25,7 +25,9 @@ function makeSelectPlaces (db) {
       ORDER BY
         name ASC`
 
-    return db.query(sql, params).then(res => res.rows)
+    return db
+      .query(sql, params)
+      .then(res => res.rows)
   }
 }
 

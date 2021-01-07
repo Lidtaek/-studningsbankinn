@@ -24,7 +24,9 @@ function makeInsertPlaces (db) {
       RETURNING
         id`
 
-    return db.query(sql, params).then(res => res.rows[0].id)
+    return db
+      .query(sql, params)
+      .then(res => res.rows[0].id)
   }
 }
 
