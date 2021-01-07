@@ -7,6 +7,7 @@ const createApp = require('./app')
 const makePlacesContext = require('../context/places')
 const makeQuestionsContext = require('../context/questions')
 const makeQuestionCategoriesContext = require('../context/questioncategories')
+const makeAnswersContext = require('../context/answers')
 
 const pgPool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -25,6 +26,7 @@ const app = createApp(isProduction)
 app.use('/places', makePlacesContext(pgPool))
 app.use('/questions', makeQuestionsContext(pgPool))
 app.use('/questioncategories', makeQuestionCategoriesContext(pgPool))
+app.use('/answers', makeAnswersContext(pgPool))
 
 const port = process.env.PORT || 3001
 app.listen(port, () => {
