@@ -1,13 +1,22 @@
 function makeSelectQuestions (db) {
-  return () => {
+  return (options) => {
     const params = []
 
-    const sql = `
+    let sql = `
       SELECT
         id,
         question
       FROM
         questions
+      WHERE
+        1 = 1`
+
+    if (options.id) {
+      sql += 'AND id = $1'
+      params.push(options.id)
+    }
+
+    sql += `
       ORDER BY
         question ASC`
 

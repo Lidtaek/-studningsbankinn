@@ -1,8 +1,8 @@
 function makeSelectAnswers (db) {
-  return () => {
+  return (options) => {
     const params = []
 
-    const sql = `
+    let sql = `
       SELECT
         a.id,
         a.placeid,
@@ -19,9 +19,18 @@ function makeSelectAnswers (db) {
       JOIN
         questioncategories c ON c.id = a.categoryid
       JOIN
-        questions q ON q.id = a.questionid      
+        questions q ON q.id = a.questionid
+      WHERE
+         1 = 1`
+
+    if (options.id) {
+      sql += 'AND a.id = $1'
+      params.push(options.id)
+    }
+
+    sql += `
       ORDER BY
-        placeid ASC`
+        placename ASC`
 
     return db
       .query(sql, params)
