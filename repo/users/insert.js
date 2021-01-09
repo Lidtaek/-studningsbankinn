@@ -1,10 +1,16 @@
+const { genSaltSync, hashSync } = require('bcryptjs')
+
 function makeInsertUsers (db) {
   return (user) => {
+    // TODO: Not use sync versions
+    const salt = genSaltSync(10)
+    const password = hashSync(user.password, salt)
+
     const params = [
       user.username,
-      user.password,
+      password,
       user.name,
-      user.placeid
+      user.placeId
     ]
 
     const sql = `

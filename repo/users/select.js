@@ -5,7 +5,7 @@ function makeSelectUsers (db) {
     let sql = `
       SELECT
         u.id,
-        u.email,
+        u.username,
         u.password,
         u.name,
         u.placeid,
