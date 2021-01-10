@@ -2,7 +2,7 @@ function corsOrigin (isProduction) {
   const whitelist = []
 
   const productionList = [
-    'https://studningsbankinn-admin.herokuapp.com/'
+    'https://studningsbankinn-admin.herokuapp.com'
   ]
 
   const developmentList = [
