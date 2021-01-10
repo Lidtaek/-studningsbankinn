@@ -4,7 +4,7 @@ function makeQuestionsContext (db) {
   const makeInsertQuestionCategories = require('../repo/questioncategories/insert')
   const makeUpdateQuestionCategories = require('../repo/questioncategories/update')
   const makeDeleteQuestionCategories = require('../repo/questioncategories/delete')
-  const makePlaceRouter = require('../routes/places')
+  const makePlaceRouter = require('../routes/crud')
 
   const selectQuestionCategories = makeSelectQuestionCategories(db)
   const insertQuestionCategories = makeInsertQuestionCategories(db)

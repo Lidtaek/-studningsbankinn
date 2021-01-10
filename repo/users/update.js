@@ -1,10 +1,12 @@
-function makeUpdateUsers (db) {
+function makeUpdateUsers (db, updateUserStore) {
   return (user) => {
     const params = [
       user.name,
       user.placeId || null,
       user.id
     ]
+
+    updateUserStore(user.token, user)
 
     const sql = `
       UPDATE users

@@ -1,7 +1,6 @@
 function makeSelectAnswers (db) {
-  return (options) => {
+  return (options, user) => {
     const params = []
-
     let sql = `
       SELECT
         a.id,
@@ -20,12 +19,19 @@ function makeSelectAnswers (db) {
         questioncategories c ON c.id = a.categoryid
       JOIN
         questions q ON q.id = a.questionid
+      LEFT JOIN
+        users u  ON u.placeid = a.placeid
       WHERE
          1 = 1`
 
     if (options.id) {
       sql += 'AND a.id = $1'
       params.push(options.id)
+    }
+    console.log('user', user)
+    if (user && !user.isAdmin && user.placeId) {
+      sql += 'AND u.placeid = $1'
+      params.push(user.placeId)
     }
 
     sql += `

@@ -4,7 +4,7 @@ function makePlacesContext (db) {
   const makeInsertPlaces = require('../repo/places/insert')
   const makeUpdatePlaces = require('../repo/places/update')
   const makeDeletePlaces = require('../repo/places/delete')
-  const makePlaceRouter = require('../routes/places')
+  const makePlaceRouter = require('../routes/crud')
 
   const selectPlaces = makeSelectPlaces(db)
   const insertPlaces = makeInsertPlaces(db)

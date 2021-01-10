@@ -9,7 +9,7 @@ function makeUpdateAnswers (db) {
     ]
 
     const sql = `
-      UPDATE questions
+      UPDATE answers
       SET
         placeid = $1,
         categoryid = $2,

@@ -9,6 +9,7 @@ function makeSelectUsers (db) {
         u.password,
         u.name,
         u.placeid,
+        u.token,
         p.name as placename
       FROM users u
       LEFT JOIN
@@ -20,6 +21,16 @@ function makeSelectUsers (db) {
       params.push(options.username)
     }
 
+    if (options.id) {
+      sql += ' AND u.id = $1'
+      params.push(options.id)
+    }
+
+    if (options.token) {
+      sql += ' AND token = $1'
+      params.push(options.token)
+    }
+
     return db
       .query(sql, params)
       .then(res => {
@@ -27,9 +38,11 @@ function makeSelectUsers (db) {
           id: row.id,
           username: row.username,
           password: row.password,
+          token: row.token,
           name: row.name,
+          isAdmin: row.placeid === null,
           placeId: row.placeid,
-          placeName: row.placename
+          placeName: row.placename || 'Vefstjóri'
         }))
       })
   }

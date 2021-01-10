@@ -1,16 +1,19 @@
 
-function makeUserContext (db) {
+function makeUserContext (db, redis) {
   const makeSelectUsers = require('../repo/users/select')
   const makeInsertUsers = require('../repo/users/insert')
   const makeUpdateUsers = require('../repo/users/update')
   const makeDeleteUsers = require('../repo/users/delete')
-  const makePlaceRouter = require('../routes/places')
+  const makePlaceRouter = require('../routes/crud')
 
-  const selectAnswers = makeSelectUsers(db)
-  const insertAnswers = makeInsertUsers(db)
-  const updateAnswers = makeUpdateUsers(db)
-  const deleteAnswers = makeDeleteUsers(db)
-  return makePlaceRouter(selectAnswers, insertAnswers, updateAnswers, deleteAnswers)
+  const makeSetUser = require('../userstore/set')
+  const setUser = makeSetUser(redis)
+
+  const selectUsers = makeSelectUsers(db)
+  const insertUsers = makeInsertUsers(db, setUser)
+  const updateUsers = makeUpdateUsers(db, setUser)
+  const deleteUsers = makeDeleteUsers(db)
+  return makePlaceRouter(selectUsers, insertUsers, updateUsers, deleteUsers)
 }
 
 module.exports = makeUserContext
