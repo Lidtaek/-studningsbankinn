@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const helmet = require('helmet')
 const enforceHttps = require('express-sslify').HTTPS
 const cors = require('cors')
+const corsOrigin = require('./cors')
 
 function createApp (isProduction) {
   const app = express()
@@ -19,7 +20,10 @@ function createApp (isProduction) {
     }))
   }
 
-  app.use(cors())
+  app.use(cors({
+    origin: corsOrigin(isProduction),
+    credentials: true
+  }))
   app.use(bodyParser.json({ limit: '40mb' }))
   app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }))
 

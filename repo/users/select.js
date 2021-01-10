@@ -42,7 +42,7 @@ function makeSelectUsers (db) {
           name: row.name,
           isAdmin: row.placeid === null,
           placeId: row.placeid,
-          placeName: row.placename || 'Vefstjóri'
+          placeName: row.placename
         }))
       })
   }
