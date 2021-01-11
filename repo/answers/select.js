@@ -5,22 +5,22 @@ function makeSelectAnswers (db) {
       SELECT
         a.id,
         a.placeid,
-        a.categoryid,
-        a.questionid,        
+        a.questionid,
+        a.questioncategoryid,
         a.answer,
         p.name as placename,
         q.question as question,
-        c.name as categoryname
+        qc.name as questioncategoryname
       FROM
         answers a
       JOIN
         places p ON p.id = a.placeid
       JOIN
-        questioncategories c ON c.id = a.categoryid
+        questioncategories qc ON qc.id = a.questioncategoryid
       JOIN
         questions q ON q.id = a.questionid
       LEFT JOIN
-        users u  ON u.placeid = a.placeid
+        users u ON u.placeid = a.placeid
       WHERE
          1 = 1`
 
@@ -43,13 +43,13 @@ function makeSelectAnswers (db) {
       .then(res => {
         return res.rows.map(row => ({
           id: row.id,
-          placeId: row.placeid,
-          categoryId: row.categoryid,
           questionId: row.questionid,
-          answer: row.answer,
-          placeName: row.placename,
           question: row.question,
-          categoryName: row.categoryname
+          placeId: row.placeid,
+          placeName: row.placename,
+          questionCategoryId: row.questioncategoryid,
+          questionCategoryName: row.questioncategoryname,
+          answer: row.answer
         }))
       })
   }

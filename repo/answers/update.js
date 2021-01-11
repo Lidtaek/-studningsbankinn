@@ -14,7 +14,7 @@ function makeUpdateAnswers (db) {
         placeid = $1,
         categoryid = $2,
         questionid = $3,
-        answer = $4       
+        answer = $4
       WHERE
         id = $5
       RETURNING
