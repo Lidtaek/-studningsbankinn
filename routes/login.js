@@ -12,10 +12,10 @@ function makeLoginRouter (login, isProduction) {
         if (user && user.token) {
           res
             .cookie(
-              'STUDNINGSGRUNNUR_API',
+              'STUDNINGSBANKINN_API',
               user.token,
               {
-                domain: '.herokuapp.com',
+                domain: '.studningsgrunnur.is',
                 secure: isProduction,
                 maxAge: 2147483647000,
                 httpOnly: true,

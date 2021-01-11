@@ -6,7 +6,7 @@ function corsOrigin (isProduction) {
   ]
 
   const developmentList = [
-    'http://local.herokuapp.com:1234'
+    'http://local.studningsbankinn.is:1234'
   ]
 
   if (isProduction) {

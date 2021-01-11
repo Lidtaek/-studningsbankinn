@@ -6,7 +6,7 @@ function makeLogoutRouter (logout) {
   router.post('/', (req, res, next) => {
     logout(req.user.token)
       .then(() => {
-        res.clearCookie('STUDNINGSGRUNNUR_API').sendStatus(200)
+        res.clearCookie('STUDNINGSBANKINN_API').sendStatus(200)
       })
       .catch(next)
   })

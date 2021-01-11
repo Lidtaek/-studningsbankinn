@@ -31,7 +31,7 @@ function makeAuthorize (redisClient, logger) {
 function getToken (headers) {
   let token
   if (headers.cookie) {
-    token = parseCookie(headers.cookie).STUDNINGSGRUNNUR_API
+    token = parseCookie(headers.cookie).STUDNINGSBANKINN_API
   }
 
   if (headers.authorization) {
