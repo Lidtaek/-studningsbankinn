@@ -15,7 +15,7 @@ function makeLoginRouter (login, isProduction) {
               'STUDNINGSGRUNNUR_API',
               user.token,
               {
-                domain: 'herokuapp.com',
+                domain: '.herokuapp.com',
                 secure: isProduction,
                 maxAge: 2147483647000,
                 httpOnly: true,
