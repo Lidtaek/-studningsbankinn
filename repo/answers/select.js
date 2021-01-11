@@ -28,7 +28,7 @@ function makeSelectAnswers (db) {
       sql += 'AND a.id = $1'
       params.push(options.id)
     }
-    console.log('user', user)
+
     if (user && !user.isAdmin && user.placeId) {
       sql += 'AND u.placeid = $1'
       params.push(user.placeId)
