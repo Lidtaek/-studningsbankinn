@@ -10,21 +10,23 @@ function makePlacesRouter (select, insert, update, del) {
   })
 
   router.put('/', (req, res, next) => {
-    return update(req.body)
-      .then(id => res.json({ id }))
-      .catch(next)
+    if (req.user) {
+      return update(req.body)
+        .then(id => res.json({ id }))
+        .catch(next)
+    }
 
-    // res.sendStatus(401)
+    res.sendStatus(401)
   })
 
   router.post('/', (req, res, next) => {
-    // if (req.user && req.user.isAdmin) {
+    if (req.user && req.user.isAdmin) {
       return insert(req.body)
         .then(id => res.json({ id }))
         .catch(next)
-    // }
+    }
 
-    // res.sendStatus(401)
+    res.sendStatus(401)
   })
 
   router.delete('/', (req, res, next) => {

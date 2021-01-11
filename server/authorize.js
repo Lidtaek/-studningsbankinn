@@ -1,26 +1,26 @@
 const parseCookie = require('cookie').parse
-
+const makeGetUser = require('../userstore/get')
 function makeAuthorize (redisClient, logger) {
+  const getUser = makeGetUser(redisClient)
+
   return function authorize () {
     return (req, res, next) => {
-      return next()
-
       const token = getToken(req.headers)
       if (token) {
-        console.log(token)
-        redisClient.get(token, (err, reply) => {
-          if (err) {
+        return getUser(token)
+          .then(reply => {
+            if (!reply) {
+              return res.sendStatus(401)
+            }
+
+            req.user = JSON.parse(reply)
+            return next()
+          })
+          .catch(err => {
             logger.error('Error authorizing')
             logger.error(err)
             return res.sendStatus(401)
-          }
-          if (!reply) {
-            return res.sendStatus(401)
-          }
-
-          req.user = JSON.parse(reply)
-          return next()
-        })
+          })
       } else {
         return res.sendStatus(401)
       }
@@ -31,7 +31,7 @@ function makeAuthorize (redisClient, logger) {
 function getToken (headers) {
   let token
   if (headers.cookie) {
-    token = parseCookie(headers.cookie).FRI_API_TOKEN
+    token = parseCookie(headers.cookie).STUDNINGSGRUNNUR_API
   }
 
   if (headers.authorization) {
