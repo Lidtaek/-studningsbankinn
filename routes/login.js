@@ -15,7 +15,7 @@ function makeLoginRouter (login, isProduction) {
               'STUDNINGSBANKINN_API',
               user.token,
               {
-                domain: '.studningsgrunnur.is',
+                domain: '.studningsbankinn.is',
                 secure: isProduction,
                 maxAge: 2147483647000,
                 httpOnly: true,
