@@ -10,7 +10,7 @@ function makeLogoutRouter (logout, isProduction) {
           .clearCookie(
             'STUDNINGSBANKINN_API',
             {
-              domain: 'studningsbankinn.is',
+              domain: '.studningsbankinn.is',
               secure: isProduction,
               maxAge: 0,
               httpOnly: true,
