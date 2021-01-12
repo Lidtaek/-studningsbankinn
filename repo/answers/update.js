@@ -2,9 +2,9 @@ function makeUpdateAnswers (db) {
   return (answer) => {
     const params = [
       answer.placeId,
-      answer.categoryId,
+      answer.questionCategoryId,
       answer.questionId,
-      answer.answer,
+      answer.answer || null,
       answer.id
     ]
 
@@ -12,7 +12,7 @@ function makeUpdateAnswers (db) {
       UPDATE answers
       SET
         placeid = $1,
-        categoryid = $2,
+        questioncategoryid = $2,
         questionid = $3,
         answer = $4
       WHERE

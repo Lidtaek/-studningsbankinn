@@ -2,15 +2,15 @@ function makeInsertAnswers (db) {
   return (answer) => {
     const params = [
       answer.placeId,
-      answer.categoryId,
+      answer.questionCategoryId,
       answer.questionId,
-      answer.answer
+      answer.answer || null
     ]
 
     const sql = `
       INSERT INTO answers(
         placeid,
-        categoryid,
+        questioncategoryid,
         questionid,
         answer
       )
