@@ -40,9 +40,11 @@ function makeSelectUsers (db) {
           password: row.password,
           token: row.token,
           name: row.name,
-          isAdmin: row.placeid === null,
           placeId: row.placeid,
-          placeName: row.placename
+          placeName: row.placename,
+          isAdmin: row.placeid === null && row.placecategoryid === null,
+          isOrganizatin: row.placecategoryid !== null,
+          isPlace: row.placeid !== null
         }))
       })
   }
