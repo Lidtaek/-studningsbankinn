@@ -7,6 +7,7 @@ function makeUpdatePlaces (db) {
       place.phone,
       place.address,
       place.postcode,
+      place.categoryId,
       place.id
     ]
 
@@ -18,9 +19,10 @@ function makeUpdatePlaces (db) {
         website  = $3,
         phone = $4,
         address = $5,
-        postcode = $6
+        postcode = $6,
+        categoryid = $7
       WHERE
-        id = $7
+        id = $8
       RETURNING
         id`
 

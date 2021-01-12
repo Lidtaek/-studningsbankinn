@@ -17,6 +17,7 @@ function makeInsertUsers (db, updateUserStore) {
       password,
       user.name,
       user.placeId,
+      user.placeCategoryId,
       token
     ]
 
@@ -26,10 +27,11 @@ function makeInsertUsers (db, updateUserStore) {
        password,
        name,
        placeid,
+       placecategoryid,
        token
       )
       VALUES (
-        $1, $2, $3, $4, $5
+        $1, $2, $3, $4, $5, $6
       )
       RETURNING
         id`

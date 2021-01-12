@@ -6,7 +6,8 @@ function makeInsertPlaces (db) {
       place.website,
       place.phone,
       place.address,
-      place.postcode
+      place.postcode,
+      place.categoryId
     ]
 
     const sql = `
@@ -16,10 +17,11 @@ function makeInsertPlaces (db) {
        website,
        phone,
        address,
-       postcode
+       postcode,
+       categoryid
       )
       VALUES (
-        $1, $2, $3, $4, $5, $6
+        $1, $2, $3, $4, $5, $6, $7
       )
       RETURNING
         id`

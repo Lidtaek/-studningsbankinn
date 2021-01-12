@@ -10,10 +10,14 @@ function makeSelectUsers (db) {
         u.name,
         u.placeid,
         u.token,
-        p.name as placename
+        p.name as placename,
+        pc.id as placecategoryid,
+        pc.name as placecategoryname
       FROM users u
       LEFT JOIN
         places p ON u.placeid = p.id
+      LEFT JOIN
+        placecategories pc ON pc.id = u.placecategoryid
       WHERE 1 = 1`
 
     if (options.username) {
@@ -27,7 +31,7 @@ function makeSelectUsers (db) {
     }
 
     if (options.token) {
-      sql += ' AND token = $1'
+      sql += ' AND u.token = $1'
       params.push(options.token)
     }
 
@@ -42,6 +46,8 @@ function makeSelectUsers (db) {
           name: row.name,
           placeId: row.placeid,
           placeName: row.placename,
+          placeCategoryId: row.placecategoryid,
+          placeCategoryName: row.placecategoryname,
           isAdmin: row.placeid === null && row.placecategoryid === null,
           isOrganizatin: row.placecategoryid !== null,
           isPlace: row.placeid !== null

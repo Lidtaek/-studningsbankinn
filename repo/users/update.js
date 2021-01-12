@@ -3,6 +3,7 @@ function makeUpdateUsers (db, updateUserStore) {
     const params = [
       user.name,
       user.placeId || null,
+      user.placeCategoryId || null,
       user.id
     ]
 
@@ -13,8 +14,9 @@ function makeUpdateUsers (db, updateUserStore) {
       SET
         name = $1,
         placeid = $2
+        placecategoryid = $3
       WHERE
-        id = $3
+        id = $4
       RETURNING
         id`
 
