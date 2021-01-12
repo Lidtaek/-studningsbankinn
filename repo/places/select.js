@@ -4,30 +4,46 @@ function makeSelectPlaces (db) {
 
     let sql = `
       SELECT
-        id,
-        name,
-        description,
-        website,
-        phone,
-        address,
-        postcode
+        p.id,
+        p.name,
+        p.description,
+        p.website,
+        p.phone,
+        p.address,
+        p.postcode,
+        p.categoryid,
+        pc.name as categoryname
       FROM
-        places
+        places p
+      LEFT JOIN
+        placecategories pc ON pc.id = p.categoryid
       WHERE
         1 = 1`
 
     if (options.id) {
-      sql += 'AND id = $1'
+      sql += 'AND p.id = $1'
       params.push(options.id)
     }
 
     sql += `
       ORDER BY
-        name ASC`
+        p.name ASC`
 
     return db
       .query(sql, params)
-      .then(res => res.rows)
+      .then(res => {
+        return res.rows.map(row => ({
+          id: row.id,
+          name: row.name,
+          description: row.description,
+          website: row.website,
+          phone: row.phone,
+          address: row.address,
+          postcode: row.postcode,
+          categoryId: row.categoryid,
+          categoryName: row.categoryname
+        }))
+      })
   }
 }
 
