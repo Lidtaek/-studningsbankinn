@@ -5,13 +5,13 @@ const redis = require('redis')
 const logger = require('heroku-logger')
 const createApp = require('./app')
 const makeAuthorize = require('./authorize')
-const makePlacesContext = require('../context/places')
-const makeQuestionsContext = require('../context/questions')
-const makeQuestionCategoriesContext = require('../context/questioncategories')
-const makeAnswersContext = require('../context/answers')
-const makeUsersContext = require('../context/users')
-const makeLoginContext = require('../context/login')
-const makeLogoutContext = require('../context/logout')
+const makePlacesComposition = require('../Composition/places')
+const makeQuestionsComposition = require('../Composition/questions')
+const makeQuestionCategoriesComposition = require('../Composition/questioncategories')
+const makeAnswersComposition = require('../Composition/answers')
+const makeUsersComposition = require('../Composition/users')
+const makeLoginComposition = require('../Composition/login')
+const makeLogoutComposition = require('../Composition/logout')
 
 const pgPool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -28,14 +28,14 @@ const isProduction = process.env.NODE_ENV === 'production'
 const app = createApp(isProduction)
 const authorize = makeAuthorize(redisClient, logger)
 
-app.use('/login', makeLoginContext(pgPool, redisClient, isProduction))
+app.use('/login', makeLoginComposition(pgPool, redisClient, isProduction))
 app.use(authorize())
-app.use('/logout', makeLogoutContext(redisClient))
-app.use('/places', makePlacesContext(pgPool))
-app.use('/questions', makeQuestionsContext(pgPool))
-app.use('/questioncategories', makeQuestionCategoriesContext(pgPool))
-app.use('/answers', makeAnswersContext(pgPool))
-app.use('/users', makeUsersContext(pgPool, redisClient))
+app.use('/logout', makeLogoutComposition(redisClient))
+app.use('/places', makePlacesComposition(pgPool))
+app.use('/questions', makeQuestionsComposition(pgPool))
+app.use('/questioncategories', makeQuestionCategoriesComposition(pgPool))
+app.use('/answers', makeAnswersComposition(pgPool))
+app.use('/users', makeUsersComposition(pgPool, redisClient))
 
 app.get('/user', (req, res) => {
   if (req.user) {

@@ -1,5 +1,5 @@
 
-function makeQuestionsContext (db) {
+function makeQuestionsComposition (db) {
   const makeSelectQuestions = require('../repo/questions/select')
   const makeInsertQuestions = require('../repo/questions/insert')
   const makeUpdateQuestions = require('../repo/questions/update')
@@ -14,4 +14,4 @@ function makeQuestionsContext (db) {
   return makePlaceRouter(selectQuestions, insertQuestions, updateQuestions, deleteQuestions)
 }
 
-module.exports = makeQuestionsContext
+module.exports = makeQuestionsComposition

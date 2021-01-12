@@ -1,5 +1,5 @@
 
-function makeLoginContext (db, redis, isProduction) {
+function makeLoginComposition (db, redis, isProduction) {
   const makeSelectUsers = require('../repo/users/select')
   const selectUsers = makeSelectUsers(db)
 
@@ -15,4 +15,4 @@ function makeLoginContext (db, redis, isProduction) {
   return loginRouter
 }
 
-module.exports = makeLoginContext
+module.exports = makeLoginComposition

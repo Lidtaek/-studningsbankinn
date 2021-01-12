@@ -1,5 +1,5 @@
 
-function makePlacesContext (db) {
+function makePlacesComposition (db) {
   const makeSelectPlaces = require('../repo/places/select')
   const makeInsertPlaces = require('../repo/places/insert')
   const makeUpdatePlaces = require('../repo/places/update')
@@ -13,4 +13,4 @@ function makePlacesContext (db) {
   return makePlaceRouter(selectPlaces, insertPlaces, updatePlaces, deletePlaces)
 }
 
-module.exports = makePlacesContext
+module.exports = makePlacesComposition

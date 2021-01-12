@@ -1,5 +1,5 @@
 
-function makeUserContext (db, redis) {
+function makeUserComposition (db, redis) {
   const makeSelectUsers = require('../repo/users/select')
   const makeInsertUsers = require('../repo/users/insert')
   const makeUpdateUsers = require('../repo/users/update')
@@ -16,4 +16,4 @@ function makeUserContext (db, redis) {
   return makePlaceRouter(selectUsers, insertUsers, updateUsers, deleteUsers)
 }
 
-module.exports = makeUserContext
+module.exports = makeUserComposition

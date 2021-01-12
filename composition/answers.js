@@ -1,5 +1,5 @@
 
-function makeAnswersContext (db) {
+function makeAnswersComposition (db) {
   const makeSelectAnswers = require('../repo/answers/select')
   const makeInsertAnswers = require('../repo/answers/insert')
   const makeUpdateAnswers = require('../repo/answers/update')
@@ -13,4 +13,4 @@ function makeAnswersContext (db) {
   return makePlaceRouter(selectAnswers, insertAnswers, updateAnswers, deleteAnswers)
 }
 
-module.exports = makeAnswersContext
+module.exports = makeAnswersComposition

@@ -1,5 +1,5 @@
 
-function makeLogoutContext (redis) {
+function makeLogoutComposition (redis) {
   const makeDelUser = require('../userstore/del')
   const delUser = makeDelUser(redis)
 
@@ -9,4 +9,4 @@ function makeLogoutContext (redis) {
   return logoutRouter
 }
 
-module.exports = makeLogoutContext
+module.exports = makeLogoutComposition
