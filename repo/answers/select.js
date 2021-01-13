@@ -1,33 +1,45 @@
 function makeSelectAnswers (db) {
   return (options, user) => {
+    if (!(user && user.id)) {
+      return Promise.resolve([])
+    }
     const params = []
     let sql = `
       SELECT
-        a.id,
-        a.placeid,
-        a.questionid,
-        a.answer,
+        qn.questionid,
+        q.question,
+        qc.name as questioncategoryname,
+        qn.placecategoryid,
+        pc.name as placecategoryname,
+        p.id as placeid,
         p.name as placename,
-        q.question as question
+        a.answer
       FROM
-        answers a
-      JOIN
-        places p ON p.id = a.placeid
-      JOIN
-        questions q ON q.id = a.questionid
+        questionnaires qn
       LEFT JOIN
-        users u ON u.placeid = a.placeid
-      WHERE
-         1 = 1`
+        questions q ON qn.questionid = q.id
+      LEFT JOIN
+        placecategories pc ON qn.placecategoryid = pc.id
+      LEFT JOIN
+        questioncategories qc ON q.categoryid = qc.id
+      LEFT JOIN
+        places p ON p.categoryid = qc.id
+      LEFT JOIN
+        answers a ON a.questionid = qn.questionid AND a.placeid = p.id`
 
-    if (options.id) {
-      sql += 'AND a.id = $1'
-      params.push(options.id)
+    if (user.isPlace) {
+      sql += ' WHERE p.id = $1'
+      params.push(user.placeId)
     }
 
-    if (user && !user.isAdmin && user.placeId) {
-      sql += 'AND u.placeid = $1'
-      params.push(user.placeId)
+    if (user.isOrganization) {
+      sql += ' WHERE pc.id = $1'
+      params.push(user.placeCategoryId)
+    }
+
+    if (user.isAdmin && options.placeId) {
+      sql += ' WHERE p.id = $1'
+      params.push(options.placeId)
     }
 
     sql += `
@@ -38,12 +50,14 @@ function makeSelectAnswers (db) {
       .query(sql, params)
       .then(res => {
         return res.rows.map(row => ({
-          id: row.id,
           questionId: row.questionid,
           question: row.question,
+          questionCategoryName: row.questioncategoryname,
+          placeCategoryId: row.placecategoryid,
+          placeCategoryName: row.placecategoryname,
           placeId: row.placeid,
           placeName: row.placename,
-          answer: row.answer
+          answer: row.answer || false
         }))
       })
   }

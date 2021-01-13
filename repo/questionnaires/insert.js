@@ -2,7 +2,6 @@ const { toTuple, flatten } = require('pg-parameterize')
 
 function makeInsertQuestionnaire (db) {
   return (questionnaires) => {
-    console.log(questionnaires)
     const params = flatten(questionnaires)
     if (params.length === 0) {
       return Promise.resolve(1)

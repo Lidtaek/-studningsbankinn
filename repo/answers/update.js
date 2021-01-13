@@ -1,28 +1,31 @@
-function makeUpdateAnswers (db) {
-  return (answer) => {
-    const params = [
-      answer.placeId,
-      answer.questionCategoryId,
-      answer.questionId,
-      answer.answer || null,
-      answer.id
-    ]
+function makeUpdateAnswers (db, makeInsertAnswers, makeDeleteAnswers) {
+  return async (answers) => {
+    const client = await db.connect()
+    const insertAnswers = makeInsertAnswers(client)
+    const deleteAnswers = makeDeleteAnswers(client)
 
-    const sql = `
-      UPDATE answers
-      SET
-        placeid = $1,
-        questioncategoryid = $2,
-        questionid = $3,
-        answer = $4
-      WHERE
-        id = $5
-      RETURNING
-        id`
+    const placeId = answers[0].placeId
+    console.log(placeId)
 
-    return db
-      .query(sql, params)
-      .then(res => res.rows[0].id)
+    const values = answers.map(a => ([
+      a.placeId,
+      a.questionId,
+      a.answer || false
+    ]))
+
+    try {
+      await client.query('BEGIN')
+      await deleteAnswers({ placeId })
+      const insertCount = await insertAnswers(values)
+
+      await client.query('COMMIT')
+      return insertCount
+    } catch (e) {
+      await client.query('ROLLBACK')
+      throw e
+    } finally {
+      client.release()
+    }
   }
 }
 

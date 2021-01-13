@@ -1,20 +1,19 @@
 function makeDeleteAnswers (db) {
   return (answer) => {
     const params = [
-      answer.id
+      answer.placeId
     ]
 
     const sql = `
       DELETE FROM
         answers
       WHERE
-        id = $1
-      RETURNING
-        id`
+        placeid = $1`
 
+    console.log(sql, params)
     return db
       .query(sql, params)
-      .then(res => res.rows[0].id)
+      .then(res => res.rowCount)
   }
 }
 

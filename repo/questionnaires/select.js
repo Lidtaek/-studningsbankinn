@@ -1,5 +1,5 @@
 function makeSelectQuestionnaire (db) {
-  return (options) => {
+  return (options, user) => {
     const params = []
 
     let sql = `
@@ -14,11 +14,11 @@ function makeSelectQuestionnaire (db) {
       JOIN
         questions q ON q.id = qn.questionid
       JOIN
-        placecategories pc ON pc.id = qn.placecategoryid      
+        placecategories pc ON pc.id = qn.placecategoryid       
       WHERE
         1 = 1`
 
-    if (options.placeCategoryId) {
+    if (user.isAdmin && options.placeCategoryId) {
       sql += 'AND qn.placecategoryid = $1'
       params.push(options.placeCategoryId)
     }
