@@ -1,25 +1,31 @@
-function makeUpdateQuestions (db) {
-  return (question) => {
-    const params = [
-      question.questionId,
-      question.placeCategoryId,
-      question.id
-    ]
+function makeUpdateQuestionnaires (db, makeInsertQuestionnaires, makeDeleteQuestionnaires) {
+  return async (questionnaire) => {
+    console.log(questionnaire)
+    const client = await db.connect()
+    const insertQuestionnaires = makeInsertQuestionnaires(client)
+    const deleteQuestionnaires = makeDeleteQuestionnaires(client)
 
-    const sql = `
-      UPDATE questionnaires
-      SET
-        questionid = $1
-        placecategoryid = $2    
-      WHERE
-        id = $3
-      RETURNING
-        id`
+    const placeCategoryId = questionnaire.placeCategoryId
 
-    return db
-      .query(sql, params)
-      .then(res => res.rows[0].id)
+    const questionnaires = questionnaire.questions.map(questionId => ([
+      placeCategoryId,
+      questionId
+    ]))
+
+    try {
+      await client.query('BEGIN')
+      await deleteQuestionnaires({ placeCategoryId })
+      const insertCount = await insertQuestionnaires(questionnaires)
+
+      await client.query('COMMIT')
+      return insertCount
+    } catch (e) {
+      await client.query('ROLLBACK')
+      throw e
+    } finally {
+      client.release()
+    }
   }
 }
 
-module.exports = makeUpdateQuestions
+module.exports = makeUpdateQuestionnaires

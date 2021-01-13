@@ -1,5 +1,5 @@
 
-function makeQuestionsComposition (db) {
+function makeQuestionnairesComposition (db) {
   const makeSelectQuestionnaires = require('../repo/questionnaires/select')
   const makeInsertQuestionnaires = require('../repo/questionnaires/insert')
   const makeUpdateQuestionnaires = require('../repo/questionnaires/update')
@@ -8,10 +8,10 @@ function makeQuestionsComposition (db) {
 
   const selectQuestionnaires = makeSelectQuestionnaires(db)
   const insertQuestionnaires = makeInsertQuestionnaires(db)
-  const updateQuestionnaires = makeUpdateQuestionnaires(db)
+  const updateQuestionnaires = makeUpdateQuestionnaires(db, makeInsertQuestionnaires, makeDeleteQuestionnaires)
   const deleteQuestionnaires = makeDeleteQuestionnaires(db)
 
   return makePlaceRouter(selectQuestionnaires, insertQuestionnaires, updateQuestionnaires, deleteQuestionnaires)
 }
 
-module.exports = makeQuestionsComposition
+module.exports = makeQuestionnairesComposition

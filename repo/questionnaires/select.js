@@ -32,7 +32,7 @@ function makeSelectQuestionnaire (db) {
       .then(res => {
         return res.rows.map(row => ({
           id: row.id,
-          questionId: row.questionId,
+          questionId: row.questionid,
           placeCategoryId: row.placecategoryid,
           question: row.question,
           placeCategoryName: row.placecategoryname

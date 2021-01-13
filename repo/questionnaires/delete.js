@@ -1,20 +1,20 @@
 function makeDeleteQuestionnaire (db) {
   return (questionnaire) => {
     const params = [
-      questionnaire.id
+      questionnaire.placeCategoryId
     ]
 
     const sql = `
       DELETE FROM
         questionnaires
       WHERE
-        id = $1
+        placecategoryid = $1
       RETURNING
-        id`
+        placecategoryid`
 
     return db
       .query(sql, params)
-      .then(res => res.rows[0].id)
+      .then(res => res.rowCount)
   }
 }
 

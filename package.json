@@ -36,7 +36,7 @@
     "helmet": "^4.3.1",
     "heroku-logger": "^0.3.3",
     "pg": "^8.5.1",
-    "pg-parameterize": "^2.0.2",
+    "pg-parameterize": "^2.0.7",
     "redis": "^3.0.2",
     "superagent": "^6.1.0",
     "uid-safe": "^2.1.5"
