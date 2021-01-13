@@ -4,25 +4,36 @@ function makeSelectQuestions (db) {
 
     let sql = `
       SELECT
-        id,
-        question
+        q.id,
+        q.question,
+        q.categoryid,
+        qc.name as categoryname
       FROM
-        questions
+        questions q
+      LEFT JOIN
+        questioncategories qc ON qc.id = q.categoryid
       WHERE
         1 = 1`
 
     if (options.id) {
-      sql += 'AND id = $1'
+      sql += 'AND q.id = $1'
       params.push(options.id)
     }
 
     sql += `
       ORDER BY
-        question ASC`
+        q.question ASC`
 
     return db
       .query(sql, params)
-      .then(res => res.rows)
+      .then(res => {
+        return res.rows.map(row => ({
+          id: row.id,
+          question: row.question,
+          categoryId: row.categoryid,
+          categoryName: row.categoryname
+        }))
+      })
   }
 }
 

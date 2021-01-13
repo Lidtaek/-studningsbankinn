@@ -6,17 +6,13 @@ function makeSelectAnswers (db) {
         a.id,
         a.placeid,
         a.questionid,
-        a.questioncategoryid,
         a.answer,
         p.name as placename,
-        q.question as question,
-        qc.name as questioncategoryname
+        q.question as question
       FROM
         answers a
       JOIN
         places p ON p.id = a.placeid
-      JOIN
-        questioncategories qc ON qc.id = a.questioncategoryid
       JOIN
         questions q ON q.id = a.questionid
       LEFT JOIN
@@ -36,7 +32,7 @@ function makeSelectAnswers (db) {
 
     sql += `
       ORDER BY
-        placename ASC`
+        p.name ASC`
 
     return db
       .query(sql, params)
@@ -47,8 +43,6 @@ function makeSelectAnswers (db) {
           question: row.question,
           placeId: row.placeid,
           placeName: row.placename,
-          questionCategoryId: row.questioncategoryid,
-          questionCategoryName: row.questioncategoryname,
           answer: row.answer
         }))
       })

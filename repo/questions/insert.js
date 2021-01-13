@@ -1,15 +1,17 @@
 function makeInsertQuestions (db) {
   return (question) => {
     const params = [
-      question.question
+      question.question,
+      question.categoryId
     ]
 
     const sql = `
       INSERT INTO questions(
-        question       
+        question
+        categoryid
       )
       VALUES (
-        $1
+        $1, $2
       )
       RETURNING
         id`

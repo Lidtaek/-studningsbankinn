@@ -1,16 +1,16 @@
 function makeUpdateQuestions (db) {
   return (question) => {
     const params = [
-      question.question,
-      question.categoryId,
+      question.questionId,
+      question.placeCategoryId,
       question.id
     ]
 
     const sql = `
-      UPDATE questions
+      UPDATE questionnaires
       SET
-        question = $1,
-        categoryid = $2
+        questionid = $1
+        placecategoryid = $2    
       WHERE
         id = $3
       RETURNING
