@@ -5,21 +5,35 @@ function makeSelectQuestionnaire (db) {
     let sql = `
       SELECT
         qn.id,
-        qn.questionid,
+        qn.use,
         qn.placecategoryid,
         q.question as question,
+        q.id as questionid,
         pc.name as placecategoryname
       FROM
-        questionnaires qn
-      JOIN
-        questions q ON q.id = qn.questionid
-      JOIN
-        placecategories pc ON pc.id = qn.placecategoryid       
-      WHERE
-        1 = 1`
+        questions q
+      LEFT JOIN
+        questionnaires qn ON qn.questionid = q.id      
+      LEFT JOIN
+        placecategories pc ON pc.id = qn.placecategoryid    
+      `
+
+    if (user.isPlace) {
+      sql += `
+        LEFT JOIN
+          places p ON p.categoryid = pc.id
+        WHERE
+          p.id = $1`
+      params.push(user.placeId)
+    }
+
+    if (user.isOrganization) {
+      sql += ' AND (qn.placecategoryid = $1 OR qn.placecategoryid is null)'
+      params.push(user.placeCategoryId)
+    }
 
     if (user.isAdmin && options.placeCategoryId) {
-      sql += 'AND qn.placecategoryid = $1'
+      sql += ' AND (qn.placecategoryid = $1 OR qn.placecategoryid is null)'
       params.push(options.placeCategoryId)
     }
 
@@ -33,9 +47,10 @@ function makeSelectQuestionnaire (db) {
         return res.rows.map(row => ({
           id: row.id,
           questionId: row.questionid,
-          placeCategoryId: row.placecategoryid,
+          placeCategoryId: row.placecategoryid || options.placeCategoryId,
           question: row.question,
-          placeCategoryName: row.placecategoryname
+          placeCategoryName: row.placecategoryname,
+          use: row.use || false
         }))
       })
   }

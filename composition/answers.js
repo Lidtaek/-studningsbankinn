@@ -8,7 +8,7 @@ function makeAnswersComposition (db) {
 
   const selectAnswers = makeSelectAnswers(db)
   const insertAnswers = makeInsertAnswers(db)
-  const updateAnswers = makeUpdateAnswers(db, makeInsertAnswers, makeDeleteAnswers)
+  const updateAnswers = makeUpdateAnswers(db)
   const deleteAnswers = makeDeleteAnswers(db)
   return makePlaceRouter(selectAnswers, insertAnswers, updateAnswers, deleteAnswers)
 }

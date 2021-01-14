@@ -1,8 +1,10 @@
-const { toTuple, flatten } = require('pg-parameterize')
-
 function makeInsertQuestionnaire (db) {
-  return (questionnaires) => {
-    const params = flatten(questionnaires)
+  return (questionnaire) => {
+    const params = [
+      questionnaire.placeCategoryId,
+      questionnaire.questionId,
+      questionnaire.use
+    ]
     if (params.length === 0) {
       return Promise.resolve(1)
     }
@@ -10,13 +12,18 @@ function makeInsertQuestionnaire (db) {
     const sql = `
       INSERT INTO questionnaires(
         placecategoryid,
-        questionid   
+        questionid,
+        use
       )
-      VALUES ${toTuple(questionnaires, true)}`
+      VALUES (
+        $1, $2, $3
+      )
+      RETURNING
+        id`
 
     return db
       .query(sql, params)
-      .then(res => res.rowCount)
+      .then(res => res.rows[0].id)
   }
 }
 

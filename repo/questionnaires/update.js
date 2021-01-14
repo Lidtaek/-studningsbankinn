@@ -1,30 +1,26 @@
-function makeUpdateQuestionnaires (db, makeInsertQuestionnaires, makeDeleteQuestionnaires) {
+function makeUpdateQuestionnaires (db) {
   return async (questionnaire) => {
-    console.log(questionnaire)
-    const client = await db.connect()
-    const insertQuestionnaires = makeInsertQuestionnaires(client)
-    const deleteQuestionnaires = makeDeleteQuestionnaires(client)
+    const params = [
+      questionnaire.questionId,
+      questionnaire.placeCategoryId,
+      questionnaire.use,
+      questionnaire.id
+    ]
 
-    const placeCategoryId = questionnaire.placeCategoryId
+    const sql = `
+      UPDATE questionnaires
+      SET
+        questionid = $1,
+        placecategoryid = $2,
+        use = $3        
+      WHERE
+        id = $4
+      RETURNING
+        id`
 
-    const questionnaires = questionnaire.questions.map(questionId => ([
-      placeCategoryId,
-      questionId
-    ]))
-
-    try {
-      await client.query('BEGIN')
-      await deleteQuestionnaires({ placeCategoryId })
-      const insertCount = await insertQuestionnaires(questionnaires)
-
-      await client.query('COMMIT')
-      return insertCount
-    } catch (e) {
-      await client.query('ROLLBACK')
-      throw e
-    } finally {
-      client.release()
-    }
+    return db
+      .query(sql, params)
+      .then(res => res.rows[0].id)
   }
 }
 

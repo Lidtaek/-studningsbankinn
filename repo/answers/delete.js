@@ -10,7 +10,6 @@ function makeDeleteAnswers (db) {
       WHERE
         placeid = $1`
 
-    console.log(sql, params)
     return db
       .query(sql, params)
       .then(res => res.rowCount)

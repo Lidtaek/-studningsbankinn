@@ -5,7 +5,7 @@ function makeSelectAnswers (db) {
     }
     const params = []
     let sql = `
-      SELECT
+      SELECT      
         qn.questionid,
         q.question,
         qc.name as questioncategoryname,
@@ -13,7 +13,8 @@ function makeSelectAnswers (db) {
         pc.name as placecategoryname,
         p.id as placeid,
         p.name as placename,
-        a.answer
+        a.id,
+        a.answer        
       FROM
         questionnaires qn
       LEFT JOIN
@@ -25,20 +26,22 @@ function makeSelectAnswers (db) {
       LEFT JOIN
         places p ON p.categoryid = qc.id
       LEFT JOIN
-        answers a ON a.questionid = qn.questionid AND a.placeid = p.id`
+        answers a ON a.questionid = qn.questionid AND a.placeid = p.id
+      WHERE
+        qn.use = true`
 
     if (user.isPlace) {
-      sql += ' WHERE p.id = $1'
+      sql += ' AND p.id = $1'
       params.push(user.placeId)
     }
 
     if (user.isOrganization) {
-      sql += ' WHERE pc.id = $1'
+      sql += ' AND pc.id = $1'
       params.push(user.placeCategoryId)
     }
 
     if (user.isAdmin && options.placeId) {
-      sql += ' WHERE p.id = $1'
+      sql += ' AND p.id = $1'
       params.push(options.placeId)
     }
 
@@ -57,7 +60,8 @@ function makeSelectAnswers (db) {
           placeCategoryName: row.placecategoryname,
           placeId: row.placeid,
           placeName: row.placename,
-          answer: row.answer || false
+          answer: row.answer || false,
+          id: row.id
         }))
       })
   }

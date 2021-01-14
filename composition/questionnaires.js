@@ -8,7 +8,7 @@ function makeQuestionnairesComposition (db) {
 
   const selectQuestionnaires = makeSelectQuestionnaires(db)
   const insertQuestionnaires = makeInsertQuestionnaires(db)
-  const updateQuestionnaires = makeUpdateQuestionnaires(db, makeInsertQuestionnaires, makeDeleteQuestionnaires)
+  const updateQuestionnaires = makeUpdateQuestionnaires(db)
   const deleteQuestionnaires = makeDeleteQuestionnaires(db)
 
   return makePlaceRouter(selectQuestionnaires, insertQuestionnaires, updateQuestionnaires, deleteQuestionnaires)
