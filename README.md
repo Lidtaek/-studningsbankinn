@@ -46,7 +46,7 @@ Kerfið notar functional forritunarhátt og nýtir sér dependency injection. Fo
 Dæmi:
 
 ```javascript
-const makeSelectPlace (db) {
+const makeSelectPlace = function (db) {
   return function selectPlace (id) {
     const sql = 'SELECT name FROM places WHERE id = $1'
     cost params = [id]
