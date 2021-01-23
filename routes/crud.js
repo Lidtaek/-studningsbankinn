@@ -1,6 +1,6 @@
 const Router = require('express').Router
 
-function makePlacesRouter (select, insert, update, del) {
+function makeCrudRouter (select, insert, update, del) {
   const router = Router()
 
   router.get('/', (req, res, next) => {
@@ -42,4 +42,4 @@ function makePlacesRouter (select, insert, update, del) {
   return router
 }
 
-module.exports = makePlacesRouter
+module.exports = makeCrudRouter
