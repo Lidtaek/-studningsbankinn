@@ -1,7 +1,7 @@
 const { genSaltSync, hashSync } = require('bcryptjs')
 const uid = require('uid-safe')
 
-function makeInsertUsers (db, updateUserStore) {
+function makeInsertUsers (db) {
   return (user) => {
     // TODO: Not use sync versions
     let password
@@ -10,7 +10,6 @@ function makeInsertUsers (db, updateUserStore) {
       password = hashSync(user.password, salt)
     }
     const token = uid.sync(24)
-    updateUserStore(token, user)
 
     const params = [
       user.username,
@@ -38,7 +37,7 @@ function makeInsertUsers (db, updateUserStore) {
 
     return db
       .query(sql, params)
-      .then(res => res.rows[0].id)
+      .then(res => ({ id: res.rows[0].id }))
   }
 }
 

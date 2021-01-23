@@ -5,14 +5,14 @@ function makeCrudRouter (select, insert, update, del) {
 
   router.get('/', (req, res, next) => {
     return select(req.query, req.user)
-      .then(places => res.json(places))
+      .then(list => res.json(list))
       .catch(next)
   })
 
   router.put('/', (req, res, next) => {
-    if (req.user) {
+    if (req.user && req.user.id) {
       return update(req.body)
-        .then(id => res.json({ id }))
+        .then(obj => res.json(obj))
         .catch(next)
     }
 
@@ -21,8 +21,8 @@ function makeCrudRouter (select, insert, update, del) {
 
   router.post('/', (req, res, next) => {
     if (req.user && req.user.isAdmin) {
-      return insert(req.body)
-        .then(id => res.json({ id }))
+      return insert(req.body, req.user)
+        .then(obj => res.json(obj))
         .catch(next)
     }
 
@@ -32,7 +32,7 @@ function makeCrudRouter (select, insert, update, del) {
   router.delete('/', (req, res, next) => {
     if (req.user && req.user.isAdmin) {
       return del(req.body)
-        .then(id => res.json({ id }))
+        .then(obj => res.json(obj))
         .catch(next)
     }
 

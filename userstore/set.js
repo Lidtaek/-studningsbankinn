@@ -1,8 +1,9 @@
 
 function makeSetUser (redisClient) {
-  return (token, user) => {
+  return (user) => {
+    console.log(user)
     return new Promise((resolve, reject) => {
-      redisClient.set(token, JSON.stringify(user), (err, reply) => {
+      redisClient.set(user.token, JSON.stringify(user), (err, reply) => {
         if (err) {
           return reject(new Error(err))
         }

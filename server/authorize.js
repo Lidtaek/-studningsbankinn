@@ -1,5 +1,6 @@
 const parseCookie = require('cookie').parse
 const makeGetUser = require('../userstore/get')
+
 function makeAuthorize (redisClient, logger) {
   const getUser = makeGetUser(redisClient)
 

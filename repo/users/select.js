@@ -49,7 +49,7 @@ function makeSelectUsers (db) {
           placeCategoryId: row.placecategoryid,
           placeCategoryName: row.placecategoryname,
           isAdmin: row.placeid === null && row.placecategoryid === null,
-          isOrganizatin: row.placecategoryid !== null,
+          isOrganization: row.placecategoryid !== null,
           isPlace: row.placeid !== null
         }))
       })

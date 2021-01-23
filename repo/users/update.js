@@ -1,4 +1,4 @@
-function makeUpdateUsers (db, updateUserStore) {
+function makeUpdateUsers (db) {
   return (user) => {
     const params = [
       user.name,
@@ -7,13 +7,11 @@ function makeUpdateUsers (db, updateUserStore) {
       user.id
     ]
 
-    updateUserStore(user.token, user)
-
     const sql = `
       UPDATE users
       SET
         name = $1,
-        placeid = $2
+        placeid = $2,
         placecategoryid = $3
       WHERE
         id = $4
@@ -22,7 +20,7 @@ function makeUpdateUsers (db, updateUserStore) {
 
     return db
       .query(sql, params)
-      .then(res => res.rows[0].id)
+      .then(res => ({ id: res.rows[0].id }))
   }
 }
 
