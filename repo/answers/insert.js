@@ -24,7 +24,7 @@ function makeInsertAnswers (db) {
 
     return db
       .query(sql, params)
-      .then(res => res.rows[0].id)
+      .then(res => ({ id: res.rows[0].id }))
   }
 }
 

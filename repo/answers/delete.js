@@ -8,11 +8,13 @@ function makeDeleteAnswers (db) {
       DELETE FROM
         answers
       WHERE
-        placeid = $1`
+        placeid = $1
+      RETURNING
+        id`
 
     return db
       .query(sql, params)
-      .then(res => res.rowCount)
+      .then(res => ({ id: res.rows[0].id }))
   }
 }
 

@@ -5,6 +5,7 @@ function makeInsertQuestionnaire (db) {
       questionnaire.questionId,
       questionnaire.use
     ]
+
     if (params.length === 0) {
       return Promise.resolve(1)
     }
@@ -23,7 +24,7 @@ function makeInsertQuestionnaire (db) {
 
     return db
       .query(sql, params)
-      .then(res => res.rows[0].id)
+      .then(res => ({ id: res.rows[0].id }))
   }
 }
 

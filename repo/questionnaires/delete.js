@@ -14,7 +14,7 @@ function makeDeleteQuestionnaire (db) {
 
     return db
       .query(sql, params)
-      .then(res => res.rowCount)
+      .then(res => ({ placeCategoryId: res.rows[0].placecategoryid }))
   }
 }
 
