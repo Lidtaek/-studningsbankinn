@@ -1,9 +1,9 @@
 function makeSelectAnswers (db) {
-  return (options, user) => {
+  return (options, user, ipAddress) => {
     if (!(user && user.id)) {
       return Promise.resolve([])
     }
-    const params = []
+    const params = [ipAddress]
     let sql = `
       SELECT      
         qn.questionid,
@@ -14,7 +14,10 @@ function makeSelectAnswers (db) {
         p.id as placeid,
         p.name as placename,
         a.id,
-        a.answer        
+        a.answer,
+        uv.vote as uservote,
+        count(case when v.vote > 0 then v.vote end) as upvotes,
+        count(case when v.vote < 0 then v.vote end) as downvotes
       FROM
         questionnaires qn
       LEFT JOIN
@@ -27,25 +30,40 @@ function makeSelectAnswers (db) {
         places p ON p.categoryid = qc.id
       LEFT JOIN
         answers a ON a.questionid = qn.questionid AND a.placeid = p.id
+      LEFT JOIN
+        votes v ON a.id = v.answerid
+      LEFT JOIN
+        votes uv ON a.id = uv.answerid AND uv.ipaddress = $1
       WHERE
         qn.use = true`
 
     if (user.isPlace) {
-      sql += ' AND p.id = $1'
+      sql += ' AND p.id = $2'
       params.push(user.placeId)
     }
 
     if (user.isOrganization) {
-      sql += ' AND pc.id = $1'
+      sql += ' AND pc.id = $2'
       params.push(user.placeCategoryId)
     }
 
     if (user.isAdmin && options.placeId) {
-      sql += ' AND p.id = $1'
+      sql += ' AND p.id = $2'
       params.push(options.placeId)
     }
 
     sql += `
+      GROUP BY
+        qn.questionid,
+        q.question,
+        qc.name,
+        qn.placecategoryid,
+        pc.name,
+        p.id,
+        p.name,
+        a.id,
+        a.answer,
+        uv.vote
       ORDER BY
         p.name ASC`
 
@@ -61,7 +79,10 @@ function makeSelectAnswers (db) {
           placeId: row.placeid,
           placeName: row.placename,
           answer: row.answer || false,
-          id: row.id
+          id: row.id,
+          userVote: row.uservote,
+          upvotes: row.upvotes,
+          downvotes: row.downvotes
         }))
       })
   }
