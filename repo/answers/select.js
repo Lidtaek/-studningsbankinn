@@ -14,7 +14,8 @@ function makeSelectAnswers (db) {
         p.id as placeid,
         p.name as placename,
         a.id,
-        a.answer        
+        a.answer,
+        a.verified
       FROM
         questionnaires qn
       LEFT JOIN
@@ -61,7 +62,8 @@ function makeSelectAnswers (db) {
           placeId: row.placeid,
           placeName: row.placename,
           answer: row.answer || false,
-          id: row.id
+          id: row.id,
+          verified: row.verified || false
         }))
       })
   }
