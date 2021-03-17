@@ -7,7 +7,7 @@ function makeInsertQuestions (db) {
 
     const sql = `
       INSERT INTO questions(
-        question
+        question,
         categoryid
       )
       VALUES (
