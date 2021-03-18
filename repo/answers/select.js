@@ -27,7 +27,7 @@ function makeSelectAnswers (db) {
       LEFT JOIN
         questioncategories qc ON q.categoryid = qc.id
       LEFT JOIN
-        places p ON p.categoryid = qc.id
+        places p ON p.categoryid = pc.id
       LEFT JOIN
         answers a ON a.questionid = qn.questionid AND a.placeid = p.id
       LEFT JOIN
@@ -36,7 +36,7 @@ function makeSelectAnswers (db) {
         votes uv ON a.id = uv.answerid AND uv.ipaddress = $1
       WHERE
         qn.use = true`
-
+        
     if (user.isPlace) {
       sql += ' AND p.id = $2'
       params.push(user.placeId)
