@@ -11,7 +11,7 @@ function makeCrudRouter (select, insert, update, del) {
 
   router.put('/', (req, res, next) => {
     if (req.user) {
-      return update(req.body)
+      return update(req.body, req.user)
         .then(obj => res.json(obj))
         .catch(next)
     }
