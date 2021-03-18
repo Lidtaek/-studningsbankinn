@@ -41,6 +41,7 @@ function getToken (headers) {
       token = parts[1]
     }
   }
+
   return token
 }
 
