@@ -4,7 +4,7 @@ function makeAnswersComposition (db) {
   const makeInsertAnswers = require('../repo/answers/insert')
   const makeUpdateAnswers = require('../repo/answers/update')
   const makeDeleteAnswers = require('../repo/answers/delete')
-  const makePlaceRouter = require('../routes/crud')
+  const makePlaceRouter = require('../routes/answers')
 
   const selectAnswers = makeSelectAnswers(db)
   const insertAnswers = makeInsertAnswers(db)

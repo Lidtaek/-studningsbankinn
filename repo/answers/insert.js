@@ -1,11 +1,12 @@
 function makeInsertAnswers (db) {
-  return (answer) => {
+  return (answer, user) => {
+    
     const params = [
-      answer.placeId,
+      user.isAdmin ? answer.placeId : user.placeId,
       answer.questionId,
       answer.answer
     ]
-
+    
     if (params.length === 0) {
       return Promise.resolve(1)
     }

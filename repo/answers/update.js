@@ -1,8 +1,8 @@
 function makeUpdateAnswers (db) {
-  return (answer) => {
+  return (answer, user) => {
     const params = [
       answer.questionId,
-      answer.placeId,
+      user.isAdmin ? answer.placeId : user.placeId,
       answer.answer,
       answer.id
     ]
