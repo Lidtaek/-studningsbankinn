@@ -22,7 +22,8 @@ function makeSelectQuestions (db) {
 
     sql += `
       ORDER BY
-        q.question ASC`
+        q.order ASC,
+        q.id DESC`
 
     return db
       .query(sql, params)
