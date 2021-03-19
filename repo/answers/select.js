@@ -56,7 +56,10 @@ function makeSelectAnswers (db) {
       GROUP BY
         qn.questionid,
         q.question,
+        q.order,
+        qc.id,
         qc.name,
+        qc.order,
         qn.placecategoryid,
         pc.name,
         p.id,
@@ -66,9 +69,9 @@ function makeSelectAnswers (db) {
         uv.vote
       ORDER BY
         qc.order ASC,
-        qc.id DESC,
+        qc.id ASC,
         q.order ASC,
-        q.id DESC`       
+        qn.questionid ASC`       
 
     return db
       .query(sql, params)
