@@ -56,6 +56,7 @@ function makeSelectAnswers (db) {
     sql += `
       GROUP BY
         qn.questionid,
+        qn.ordering,
         q.question,
         qc.id,
         qc.name,        
