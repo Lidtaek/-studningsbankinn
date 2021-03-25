@@ -3,6 +3,7 @@ function makeInsertQuestionnaire (db) {
     const params = [
       questionnaire.placeCategoryId,
       questionnaire.questionId,
+      questionnaire.ordering || 0,
       questionnaire.use
     ]
 
@@ -14,10 +15,11 @@ function makeInsertQuestionnaire (db) {
       INSERT INTO questionnaires(
         placecategoryid,
         questionid,
+        ordering,
         use
       )
       VALUES (
-        $1, $2, $3
+        $1, $2, $3, $4
       )
       RETURNING
         id`

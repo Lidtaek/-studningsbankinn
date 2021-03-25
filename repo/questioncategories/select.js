@@ -4,21 +4,22 @@ function makeSelectQuestionCategories (db) {
 
     let sql = `
       SELECT
-        q.id,
-        q.name
+        qc.id,
+        qc.name,
+        qc.ordering
       FROM
-        questioncategories q
+        questioncategories qc
       WHERE 1=1`
 
     if (options.id) {
-      sql += 'AND q.id = $1'
+      sql += 'AND qc.id = $1'
       params.push(options.id)
     }
 
     sql += `
       ORDER BY
-        q.order ASC,
-        q.id DESC`
+        qc.ordering ASC,
+        qc.id DESC`
 
     return db
       .query(sql, params)

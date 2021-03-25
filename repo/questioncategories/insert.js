@@ -1,18 +1,20 @@
 function makeInsertQuestionCategories (db) {
   return (category) => {
     const params = [
-      category.name
+      category.name,
+      category.ordering || 0
     ]
 
     const sql = `
       INSERT INTO questioncategories(
-        name       
+        name,
+        ordering
       )
       VALUES (
-        $1
+        $1, $2
       )
       RETURNING
-        id`
+        id`    
 
     return db
       .query(sql, params)

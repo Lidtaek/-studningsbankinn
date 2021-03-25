@@ -4,6 +4,7 @@ function makeUpdateAnswers (db) {
       answer.questionId,
       user.isAdmin ? answer.placeId : user.placeId,
       answer.answer,
+      answer.comment,
       answer.id
     ]
 
@@ -12,9 +13,10 @@ function makeUpdateAnswers (db) {
       SET
         questionid = $1,
         placeid = $2,
-        answer = $3        
+        answer = $3,
+        comment = $4
       WHERE
-        id = $4
+        id = $5
       RETURNING
         id`
 

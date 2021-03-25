@@ -4,7 +4,8 @@ function makeInsertAnswers (db) {
     const params = [
       user.isAdmin ? answer.placeId : user.placeId,
       answer.questionId,
-      answer.answer
+      answer.answer,
+      answer.comment
     ]
     
     if (params.length === 0) {
@@ -15,10 +16,11 @@ function makeInsertAnswers (db) {
       INSERT INTO answers(
         placeid,
         questionid,
-        answer
+        answer,
+        comment
       )
       VALUES (
-        $1, $2, $3
+        $1, $2, $3, $4
       )
       RETURNING
         id`

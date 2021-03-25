@@ -7,11 +7,16 @@ function makeSelectQuestionnaire (db) {
         qn.id,
         qn.use,
         qn.placecategoryid,
+        qn.ordering,
         q.question as question,
+        qc.name as questioncategoryname,
+        qc.id as questioncategoryid,
         q.id as questionid,
         pc.name as placecategoryname
       FROM
         questions q
+      LEFT JOIN
+        questioncategories qc ON qc.id = q.categoryid
       LEFT JOIN
         questionnaires qn ON qn.questionid = q.id      
       LEFT JOIN
@@ -39,7 +44,10 @@ function makeSelectQuestionnaire (db) {
 
     sql += `
       ORDER BY
-        qn.placecategoryid ASC`
+        qc.ordering ASC,
+        qn.ordering ASC,
+        q.id DESC,
+        qn.id DESC`
 
     return db
       .query(sql, params)
@@ -47,8 +55,11 @@ function makeSelectQuestionnaire (db) {
         return res.rows.map(row => ({
           id: row.id,
           questionId: row.questionid,
-          placeCategoryId: row.placecategoryid || options.placeCategoryId,
           question: row.question,
+          ordering: row.ordering,
+          questionCategoryId: row.questioncategoryid,
+          questionCategoryName: row.questioncategoryname,          
+          placeCategoryId: row.placecategoryid || options.placeCategoryId,          
           placeCategoryName: row.placecategoryname,
           use: row.use || false
         }))

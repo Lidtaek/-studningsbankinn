@@ -2,15 +2,17 @@ function makeUpdateQuestionCategories (db) {
   return (category) => {
     const params = [
       category.name,
+      category.ordering || 0,
       category.id
     ]
 
     const sql = `
       UPDATE questioncategories
       SET
-        name = $1       
+        name = $1,
+        ordering = $2   
       WHERE
-        id = $2
+        id = $3
       RETURNING
         id`
 

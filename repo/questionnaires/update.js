@@ -3,7 +3,8 @@ function makeUpdateQuestionnaires (db) {
     const params = [
       questionnaire.questionId,
       questionnaire.placeCategoryId,
-      questionnaire.use,
+      questionnaire.ordering || 0,
+      questionnaire.use,      
       questionnaire.id
     ]
 
@@ -12,9 +13,10 @@ function makeUpdateQuestionnaires (db) {
       SET
         questionid = $1,
         placecategoryid = $2,
-        use = $3        
+        ordering = $3,
+        use = $4
       WHERE
-        id = $4
+        id = $5
       RETURNING
         id`
 

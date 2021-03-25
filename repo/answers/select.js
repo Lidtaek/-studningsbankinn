@@ -15,6 +15,7 @@ function makeSelectAnswers (db) {
         p.name as placename,
         a.id,
         a.answer,
+        a.comment,
         uv.vote as uservote,
         count(case when v.vote > 0 then v.vote end) as upvotes,
         count(case when v.vote < 0 then v.vote end) as downvotes
@@ -56,21 +57,19 @@ function makeSelectAnswers (db) {
       GROUP BY
         qn.questionid,
         q.question,
-        q.order,
         qc.id,
-        qc.name,
-        qc.order,
+        qc.name,        
         qn.placecategoryid,
         pc.name,
         p.id,
         p.name,
         a.id,
         a.answer,
+        a.comment,
         uv.vote
       ORDER BY
-        qc.order ASC,
-        qc.id ASC,
-        q.order ASC,
+        qc.ordering ASC,
+        qc.id DESC,
         qn.questionid ASC`       
 
     return db
@@ -85,6 +84,7 @@ function makeSelectAnswers (db) {
           placeId: row.placeid,
           placeName: row.placename,
           answer: row.answer || false,
+          comment: row.comment,
           id: row.id,
           userVote: row.uservote,
           upvotes: row.upvotes,
