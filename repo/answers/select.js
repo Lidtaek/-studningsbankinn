@@ -68,9 +68,10 @@ function makeSelectAnswers (db) {
         a.comment,
         uv.vote
       ORDER BY
-        qc.ordering ASC,
+        qc.ordering ASC,        
         qc.id DESC,
-        qn.questionid ASC`       
+        qn.ordering ASC,
+        qn.questionid DESC`
 
     return db
       .query(sql, params)
