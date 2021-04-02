@@ -47,7 +47,7 @@ function makeSelectQuestionnaire (db) {
         qc.ordering ASC,
         qc.id DESC,
         qn.ordering ASC,
-        q.id DESC`        
+        q.id ASC`        
 
     return db
       .query(sql, params)
