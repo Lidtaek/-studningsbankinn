@@ -19,7 +19,7 @@ function makeSelectQuestionCategories (db) {
     sql += `
       ORDER BY
         qc.ordering ASC,
-        qc.id DESC`
+        qc.id ASC`
 
     return db
       .query(sql, params)
