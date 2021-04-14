@@ -75,9 +75,9 @@ function makeSelectAnswers (db) {
         uv.vote
       ORDER BY
         qc.ordering ASC,        
-        qc.id DESC,
+        qc.id ASC,
         qn.ordering ASC,
-        qn.questionid DESC`
+        qn.questionid ASC`
 
     return db
       .query(sql, params)
