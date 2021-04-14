@@ -1,19 +1,32 @@
 const parseCookie = require('cookie').parse
 const makeGetUser = require('../userstore/get')
+const makeSetUser = require('../userstore/set')
+const makeSelectUser = require('../repo/users/select')
 
-function makeAuthorize (redisClient, logger) {
-  const getUser = makeGetUser(redisClient)
+function makeAuthorize (redisClient, pgPool, logger) {
+  const getUser = makeGetUser(redisClient)  
+  const setUser = makeSetUser(redisClient)
+  const selectUser = makeSelectUser(pgPool)
 
   return function authorize () {
     return (req, res, next) => {
       const token = getToken(req.headers)
+
       if (token) {
         return getUser(token)
           .then(reply => {
             if (!reply) {
-              return res.sendStatus(401)
+              return selectUser({ token }).then(users => {
+                if (users.length === 1) {                  
+                  req.user = users[0]
+                  setUser(users[0])
+                  return next()
+                } else {
+                  return res.sendStatus(401)
+                }
+              })              
             }
-
+            
             req.user = JSON.parse(reply)
             return next()
           })

@@ -44,8 +44,13 @@ function makeSelectAnswers (db) {
     }
 
     if (user.isOrganization) {
-      sql += ' AND pc.id = $2'
+      sql += ' AND pc.id = $2'      
       params.push(user.placeCategoryId)
+
+      if (options.placeId) {
+        sql += ' AND p.id = $3'
+      params.push(options.placeId)
+      }
     }
 
     if (user.isAdmin && options.placeId) {
