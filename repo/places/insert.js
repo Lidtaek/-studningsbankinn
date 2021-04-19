@@ -7,6 +7,8 @@ function makeInsertPlaces (db) {
       place.phone,
       place.address,
       place.postcode,
+      place.contact,
+      place.email,
       place.categoryId
     ]
 
@@ -18,10 +20,12 @@ function makeInsertPlaces (db) {
        phone,
        address,
        postcode,
+       contact,
+       email,
        categoryid
       )
       VALUES (
-        $1, $2, $3, $4, $5, $6, $7
+        $1, $2, $3, $4, $5, $6, $7, $8, $9
       )
       RETURNING
         id`

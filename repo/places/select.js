@@ -11,6 +11,8 @@ function makeSelectPlaces (db) {
         p.phone,
         p.address,
         p.postcode,
+        p.contact,
+        p.email,
         p.categoryid,
         pc.name as categoryname
       FROM
@@ -40,6 +42,8 @@ function makeSelectPlaces (db) {
           phone: row.phone,
           address: row.address,
           postcode: row.postcode,
+          contact: row.contact,
+          email: row.email,
           categoryId: row.categoryid,
           categoryName: row.categoryname
         }))
