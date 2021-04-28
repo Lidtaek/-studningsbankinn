@@ -1,5 +1,5 @@
 function makeSelectPlaces (db) {
-  return (options) => {
+  return (options, user) => {
     const params = []
 
     let sql = `
@@ -14,11 +14,14 @@ function makeSelectPlaces (db) {
         p.contact,
         p.email,
         p.categoryid,
-        pc.name as categoryname
+        pc.name as categoryname,
+        u.token as usertoken
       FROM
         places p
       LEFT JOIN
         placecategories pc ON pc.id = p.categoryid
+      LEFT JOIN
+        users u ON u.placeid = p.id
       WHERE
         1 = 1`
 
@@ -45,7 +48,8 @@ function makeSelectPlaces (db) {
           contact: row.contact,
           email: row.email,
           categoryId: row.categoryid,
-          categoryName: row.categoryname
+          categoryName: row.categoryname,
+          userToken: user.isAdmin ? row.usertoken : undefined
         }))
       })
   }
