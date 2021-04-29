@@ -4,7 +4,7 @@ function corsOrigin (isProduction) {
   const productionList = [
     'https://admin.studningsbankinn.is',
     'https://sif.studningsbankinn.is',
-    'https://studningsbankinn-sif.herokuapp.com'
+    'https://neminn.is'
   ]
 
   const developmentList = [
