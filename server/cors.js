@@ -3,6 +3,8 @@ function corsOrigin (isProduction) {
 
   const productionList = [
     'https://admin.studningsbankinn.is',
+    'https://www.studningsbankinn.is',
+    'https://studningsbankinn.is',
     'https://sif.studningsbankinn.is',
     'https://neminn.is'
   ]
