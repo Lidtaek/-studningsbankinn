@@ -1,5 +1,10 @@
 function makeInsertPlaces (db) {
-  return (place) => {
+  return (place, user) => {
+
+    if (user.isPlace) {
+      return { id: undefined }
+    }
+
     const params = [
       place.name,
       place.description,

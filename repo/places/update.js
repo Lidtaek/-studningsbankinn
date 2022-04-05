@@ -1,5 +1,5 @@
 function makeUpdatePlaces (db) {
-  return (place) => {
+  return (place, user) => {
     const params = [
       place.name,
       place.description,
@@ -10,7 +10,7 @@ function makeUpdatePlaces (db) {
       place.contact,
       place.email,
       place.categoryId,
-      place.id
+      user.isAdmin ? place.id : user.placeId,
     ]
 
     const sql = `

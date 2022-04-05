@@ -1,5 +1,11 @@
 function makeSelectPlaces (db) {
   return (options, user) => {
+    if (!(user && user.id)) {
+      return Promise.resolve([])
+    }
+
+    console.log(user.placeId)
+
     const params = []
 
     let sql = `
@@ -25,9 +31,10 @@ function makeSelectPlaces (db) {
       WHERE
         1 = 1`
 
-    if (options.id) {
+    const placeId = user.placeId || options.id
+    if (placeId) {
       sql += 'AND p.id = $1'
-      params.push(options.id)
+      params.push(placeId)
     }
 
     sql += `
