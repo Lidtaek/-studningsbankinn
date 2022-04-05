@@ -2,9 +2,7 @@ function makeSelectPlaces (db) {
   return (options, user) => {
     if (!(user && user.id)) {
       return Promise.resolve([])
-    }
-
-    console.log(user.placeId)
+    }    
 
     const params = []
 
