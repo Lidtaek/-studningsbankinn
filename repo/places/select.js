@@ -10,6 +10,8 @@ function makeSelectPlaces (db) {
       SELECT
         p.id,
         p.name,
+        p.shortname,
+        p.abbreviation,
         p.description,
         p.website,
         p.phone,
@@ -45,6 +47,8 @@ function makeSelectPlaces (db) {
         return res.rows.map(row => ({
           id: row.id,
           name: row.name,
+          shortName: row.shortname,
+          abbreviation: row.abbreviation,
           description: row.description,
           website: row.website,
           phone: row.phone,

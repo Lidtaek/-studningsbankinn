@@ -2,6 +2,8 @@ function makeUpdatePlaces (db) {
   return (place, user) => {
     const params = [
       place.name,
+      place.shortName,
+      place.abbreviation,
       place.description,
       place.website,
       place.phone,
@@ -17,16 +19,18 @@ function makeUpdatePlaces (db) {
       UPDATE places
       SET
         name = $1,
-        description = $2,
-        website  = $3,
-        phone = $4,
-        address = $5,
-        postcode = $6,
-        contact = $7,
-        email = $8,
-        categoryid = $9
+        shortname = $2,
+        abbreviation = $3,
+        description = $4,
+        website  = $5,
+        phone = $6,
+        address = $7,
+        postcode = $8,
+        contact = $9,
+        email = $10,
+        categoryid = $11
       WHERE
-        id = $10
+        id = $12
       RETURNING
         id`
 

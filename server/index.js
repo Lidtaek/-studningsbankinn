@@ -27,6 +27,9 @@ const redisClient = redis.createClient({
   url: process.env.REDIS_URL
 })
 
+// possible fail
+redisClient.connect()
+
 const isProduction = process.env.NODE_ENV === 'production'
 
 const app = createApp(isProduction)
