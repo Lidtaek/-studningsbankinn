@@ -1,5 +1,4 @@
-function corsOrigin (isProduction) {
-  console.log('isProduction', isProduction)
+function corsOrigin (isProduction) {  
   const whitelist = []
 
   const productionList = [

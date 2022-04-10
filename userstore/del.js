@@ -1,7 +1,13 @@
-
 function makeDelUser (redisClient) {
   return (token) => {
-    return redisClient.del(token)
+    return new Promise((resolve, reject) => {
+      redisClient.del(token, (err, reply) => {
+        if (err) {
+          return reject(new Error(err))
+        }
+        return resolve(reply)
+      })
+    })
   }
 }
 
