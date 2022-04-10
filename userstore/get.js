@@ -1,7 +1,7 @@
 
 function makeGetUser (redisClient) {
-  return (token) => {    
-    return redisClient.get(token)    
+  return (token) => {
+    return redisClient.get(token)
   }
 }
 

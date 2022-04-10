@@ -12,7 +12,7 @@ function makeUpdatePlaces (db) {
       place.contact,
       place.email,
       place.categoryId,
-      user.isAdmin ? place.id : user.placeId,
+      user.isAdmin ? place.id : user.placeId
     ]
 
     const sql = `

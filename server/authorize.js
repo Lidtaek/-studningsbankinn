@@ -4,7 +4,7 @@ const makeSetUser = require('../userstore/set')
 const makeSelectUser = require('../repo/users/select')
 
 function makeAuthorize (redisClient, pgPool, logger) {
-  const getUser = makeGetUser(redisClient)  
+  const getUser = makeGetUser(redisClient)
   const setUser = makeSetUser(redisClient)
   const selectUser = makeSelectUser(pgPool)
 
@@ -17,16 +17,16 @@ function makeAuthorize (redisClient, pgPool, logger) {
           .then(reply => {
             if (!reply) {
               return selectUser({ token }).then(users => {
-                if (users.length === 1) {                  
+                if (users.length === 1) {
                   req.user = users[0]
                   setUser(users[0])
                   return next()
                 } else {
                   return res.sendStatus(401)
                 }
-              })              
+              })
             }
-            
+
             req.user = JSON.parse(reply)
             return next()
           })

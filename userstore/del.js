@@ -1,7 +1,7 @@
 
 function makeDelUser (redisClient) {
-  return (token) => {    
-    return redisClient.del(token)        
+  return (token) => {
+    return redisClient.del(token)
   }
 }
 

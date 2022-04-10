@@ -47,7 +47,7 @@ function makeSelectQuestionnaire (db) {
         qc.ordering ASC,
         qc.id ASC,
         qn.ordering ASC,
-        q.id ASC`        
+        q.id ASC`
 
     return db
       .query(sql, params)
@@ -58,8 +58,8 @@ function makeSelectQuestionnaire (db) {
           question: row.question,
           ordering: row.ordering,
           questionCategoryId: row.questioncategoryid,
-          questionCategoryName: row.questioncategoryname,          
-          placeCategoryId: row.placecategoryid || options.placeCategoryId,          
+          questionCategoryName: row.questioncategoryname,
+          placeCategoryId: row.placecategoryid || options.placeCategoryId,
           placeCategoryName: row.placecategoryname,
           use: row.use || false
         }))

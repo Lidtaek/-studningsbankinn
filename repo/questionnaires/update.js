@@ -4,7 +4,7 @@ function makeUpdateQuestionnaires (db) {
       questionnaire.questionId,
       questionnaire.placeCategoryId,
       questionnaire.ordering || 0,
-      questionnaire.use,      
+      questionnaire.use,
       questionnaire.id
     ]
 

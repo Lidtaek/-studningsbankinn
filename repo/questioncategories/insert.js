@@ -14,7 +14,7 @@ function makeInsertQuestionCategories (db) {
         $1, $2
       )
       RETURNING
-        id`    
+        id`
 
     return db
       .query(sql, params)

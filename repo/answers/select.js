@@ -37,19 +37,19 @@ function makeSelectAnswers (db) {
         votes uv ON a.id = uv.answerid AND uv.ipaddress = $1
       WHERE
         qn.use = true`
-        
+
     if (user.isPlace) {
       sql += ' AND p.id = $2'
       params.push(user.placeId)
     }
 
     if (user.isOrganization) {
-      sql += ' AND pc.id = $2'      
+      sql += ' AND pc.id = $2'
       params.push(user.placeCategoryId)
 
       if (options.placeId) {
         sql += ' AND p.id = $3'
-      params.push(options.placeId)
+        params.push(options.placeId)
       }
     }
 

@@ -1,6 +1,5 @@
 function makeInsertPlaces (db) {
   return (place, user) => {
-
     if (user.isPlace) {
       return { id: undefined }
     }
