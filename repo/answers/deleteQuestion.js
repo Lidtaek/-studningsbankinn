@@ -14,7 +14,15 @@ function makeDeleteQuestionFromAnswers (db) {
 
     return db
       .query(sql, params)
-      .then(res => ({ questionId: res.rows[0].questionid }))
+      .then(res => {        
+        if (res.rows.length === 0) {
+          return undefined
+        }
+
+        return  {          
+          questionId: res.rows[0].questionid
+        }        
+    })
   }
 }
 

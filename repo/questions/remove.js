@@ -8,16 +8,16 @@ const makeRemoveQuestion = function(makeDeleteQuestion, makeDeleteQuestionFromAn
 
     try {
       await client.query('BEGIN')
-      await deleteQuestion(question)
-      await deleteQuestionFromAnswers(question)
-      await deleteQuestionFromQuestionnaire(question)
+      await deleteQuestion(question)    
+      await deleteQuestionFromAnswers(question)      
+      await deleteQuestionFromQuestionnaire(question)            
       
       await client.query('COMMIT')
-      return { questionId: question.questionId }
+      return { id: question.id }
     } catch (e) {
       await client.query('ROLLBACK')
     } finally  {
-      await client.query('RELEASE')
+      client.release()
     }
 
   }
