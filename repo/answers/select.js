@@ -9,6 +9,7 @@ function makeSelectAnswers (db) {
         qn.questionid,
         q.question,
         qc.name as questioncategoryname,
+        qc.ordering questioncategoryordering,
         qn.placecategoryid,
         pc.name as placecategoryname,
         p.id as placeid,
@@ -74,6 +75,7 @@ function makeSelectAnswers (db) {
         a.comment,
         uv.vote
       ORDER BY
+        p.name ASC,
         qc.ordering ASC,        
         qc.id ASC,
         qn.ordering ASC,
@@ -86,6 +88,7 @@ function makeSelectAnswers (db) {
           questionId: row.questionid,
           question: row.question,
           questionCategoryName: row.questioncategoryname,
+          questionCategoryOrdering: row.questioncategoryordering,
           placeCategoryId: row.placecategoryid,
           placeCategoryName: row.placecategoryname,
           placeId: row.placeid,
