@@ -11,7 +11,8 @@ function corsOrigin (isProduction) {
 
   const developmentList = [
     'http://local.studningsbankinn.is:3000',
-    'http://local.studningsbankinn.is:3010'
+    'http://local.studningsbankinn.is:3010',
+    'http://local.studningsbankinn.is:1234',
   ]
 
   if (isProduction) {
