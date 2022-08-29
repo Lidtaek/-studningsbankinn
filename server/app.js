@@ -7,8 +7,9 @@ const enforceHttps = require('express-sslify').HTTPS
 const cors = require('cors')
 const corsOrigin = require('./cors')
 
-function createApp (isProduction) {
+function createApp (isProduction, logger) {
   const app = express()
+  logger.info('creating app')
 
   app.use(helmet({
     contentSecurityPolicy: false
@@ -22,7 +23,7 @@ function createApp (isProduction) {
   }
 
   app.use(cors({
-    origin: corsOrigin(isProduction),
+    origin: corsOrigin(isProduction, logger),
     credentials: true
   }))
   app.use(bodyParser.json({ limit: '40mb' }))

@@ -29,7 +29,7 @@ const redisClient = redis.createClient({
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-const app = createApp(isProduction)
+const app = createApp(isProduction, logger)
 const authorize = makeAuthorize(redisClient, pgPool, logger)
 
 app.use('/login', makeLoginComposition(pgPool, redisClient, isProduction))

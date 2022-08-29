@@ -1,6 +1,6 @@
-function corsOrigin (isProduction) {  
+function corsOrigin (isProduction, logger) {  
   const whitelist = []
-
+  
   const productionList = [
     'https://admin.studningsbankinn.is',
     'https://www.studningsbankinn.is',
@@ -22,6 +22,7 @@ function corsOrigin (isProduction) {
   }
 
   return function (origin, cb) {
+    logger.info('got hit from ' + origin )
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       cb(null, true)
     } else {
