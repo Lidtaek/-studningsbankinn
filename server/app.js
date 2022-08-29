@@ -10,14 +10,15 @@ const corsOrigin = require('./cors')
 function createApp (isProduction) {
   const app = express()
 
+  app.use(helmet({
+    contentSecurityPolicy: false
+  }))
+
   if (isProduction) {
     app.use(enforceHttps({
       trustProtoHeader: true
     }))
-    app.use(compression())
-    app.use(helmet({
-      contentSecurityPolicy: false
-    }))
+    app.use(compression())    
   }
 
   app.use(cors({
