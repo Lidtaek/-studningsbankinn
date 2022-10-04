@@ -22,7 +22,6 @@ function corsOrigin (isProduction, logger) {
   }
 
   return function (origin, cb) {
-    logger.info('got hit from ' + origin )
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       cb(null, true)
     } else {
