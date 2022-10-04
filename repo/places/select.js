@@ -58,7 +58,7 @@ function makeSelectPlaces (db) {
           email: row.email,
           categoryId: row.categoryid,
           categoryName: row.categoryname,
-          userToken: user.isAdmin ? row.usertoken : undefined
+          userToken: (user.isAdmin || user.isOrganization) ? row.usertoken : undefined
         }))
       })
   }
