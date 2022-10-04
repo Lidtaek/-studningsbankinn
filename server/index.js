@@ -46,7 +46,17 @@ app.use('/users', makeUsersComposition(pgPool, redisClient))
 
 app.get('/user', (req, res) => {
   if (req.user) {
-    return res.json(req.user)
+    return res.json({
+        name: req.user.name,
+        username: req.user.username,
+        isAdmin: req.user.isAdmin,
+        isPlace: req.user.isPlace,
+        isOrganization: req.user.isOrganization,
+        placeId: req.user.placeId,
+        placeName: req.user.placeName,              
+        placeCategoryId: req.user.placeCategoryId,
+        placeCategoryName: req.user.placeCategoryName,              
+      })
   }
 
   return res.sendStatus(404)

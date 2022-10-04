@@ -27,8 +27,12 @@ function makeLoginRouter (login, isProduction) {
               name: user.name,
               username: user.username,
               isAdmin: user.isAdmin,
+              isPlace: user.isPlace,
+              isOrganization: user.isOrganization,
               placeId: user.placeId,
-              placeName: user.placeName
+              placeName: user.placeName,              
+              placeCategoryId: user.placeCategoryId,
+              placeCategoryName: user.placeCategoryName,              
             })
         } else {
           res.sendStatus(401)
