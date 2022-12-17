@@ -33,7 +33,6 @@ const app = createApp(isProduction, logger)
 const authorize = makeAuthorize(redisClient, pgPool, logger)
 
 app.use('/login', makeLoginComposition(pgPool, redisClient, isProduction))
-app.use('/votes', requestIp.mw(), makeVotesComposition(pgPool))
 app.use(authorize())
 app.use('/logout', makeLogoutComposition(redisClient))
 app.use('/places', makePlacesComposition(pgPool))
