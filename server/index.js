@@ -12,10 +12,11 @@ const makeQuestionsComposition = require('../composition/questions')
 const makeQuestionCategoriesComposition = require('../composition/questioncategories')
 const makeQuestionnairesComposition = require('../composition/questionnaires')
 const makeAnswersComposition = require('../composition/answers')
-const makeVotesComposition = require('../composition/votes')
 const makeUsersComposition = require('../composition/users')
 const makeLoginComposition = require('../composition/login')
 const makeLogoutComposition = require('../composition/logout')
+const makeStatementsComposition = require('../composition/statements')
+const makeStatementQuestionsComposition = require('../composition/statementquestions')
 
 const pgPool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -42,6 +43,8 @@ app.use('/questioncategories', makeQuestionCategoriesComposition(pgPool))
 app.use('/questionnaires', makeQuestionnairesComposition(pgPool))
 app.use('/answers', makeAnswersComposition(pgPool))
 app.use('/users', makeUsersComposition(pgPool, redisClient))
+app.use('/statements', makeStatementsComposition(pgPool))
+app.use('/statementquestions', makeStatementQuestionsComposition(pgPool))
 
 app.get('/user', (req, res) => {
   if (req.user) {
