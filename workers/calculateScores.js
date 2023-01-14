@@ -12,7 +12,7 @@ const pgPool = new pg.Pool({
   }
 })
 
-const task = cron.schedule('*/1 * * * *', () => {
+const task = cron.schedule('00 00 15 feb,may,aug,nov *', () => {
   console.log('starting job')
   const today = new Date().getFullYear() + '-' + new Date().getMonth()+1 + '-' + new Date().getDate()
   const selectAnswers = makeSelectAnswers(pgPool)
