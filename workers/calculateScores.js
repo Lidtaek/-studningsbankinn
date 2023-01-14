@@ -32,7 +32,7 @@ const task = cron.schedule('*/1 * * * *', () => {
     })
 
     return insertScores(data).then(() => {
-      console.log('done')
+      console.log('inserted scores')
     })
   })
 })
