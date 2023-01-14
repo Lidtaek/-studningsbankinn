@@ -79,8 +79,7 @@ function makeSelectAnswers (db) {
         qc.ordering ASC,        
         qc.id ASC,
         qn.ordering ASC,
-        qn.questionid ASC`
-
+        qn.questionid ASC`    
     return db
       .query(sql, params)
       .then(res => {

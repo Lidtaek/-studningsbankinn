@@ -3,7 +3,6 @@ require('dotenv').config()
 const pg = require('pg')
 const redis = require('redis')
 const logger = require('heroku-logger')
-const requestIp = require('request-ip')
 const createApp = require('./app')
 const makeAuthorize = require('./authorize')
 const makePlacesComposition = require('../composition/places')
@@ -17,6 +16,7 @@ const makeLoginComposition = require('../composition/login')
 const makeLogoutComposition = require('../composition/logout')
 const makeStatementsComposition = require('../composition/statements')
 const makeStatementQuestionsComposition = require('../composition/statementquestions')
+const makeScoresComposition = require('../composition/scores')
 
 const pgPool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -45,6 +45,7 @@ app.use('/answers', makeAnswersComposition(pgPool))
 app.use('/users', makeUsersComposition(pgPool, redisClient))
 app.use('/statements', makeStatementsComposition(pgPool))
 app.use('/statementquestions', makeStatementQuestionsComposition(pgPool))
+app.use('/scores', makeScoresComposition(pgPool))
 
 app.get('/user', (req, res) => {
   if (req.user) {
