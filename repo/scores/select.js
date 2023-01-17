@@ -14,12 +14,12 @@ function makeSelectScores (db) {
         p.name as placename,
         qc.name as questioncategoryname
       FROM
-        scores s
+        scores s      
       LEFT JOIN
         places p ON p.id = s.placeid
       LEFT JOIN
-        questioncategories qc ON qc.id = s.questioncategoryid
-      WHERE 1=1`
+        questioncategories qc ON qc.id = s.questioncategoryid              
+      WHERE date = (SELECT Max(date) as maxdate from scores)`
 
       if (options.date) {
         sql += ' AND date = ?'
