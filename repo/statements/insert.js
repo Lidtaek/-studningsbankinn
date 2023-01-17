@@ -2,13 +2,13 @@ function makeInsertStatements(db) {
   return (statement) => {
     const params = [
       statement.statement,
-      statement.order
+      statement.ordering
     ]
 
     const sql = `
       INSERT INTO statements(
         statement,
-        order      
+        ordering      
       )
       VALUES (
         $1,

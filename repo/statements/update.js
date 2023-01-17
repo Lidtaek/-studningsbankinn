@@ -2,7 +2,7 @@ function makeUpdateStatements (db) {
   return (statement) => {
     const params = [
       statement.statement,
-      statement.order,
+      statement.ordering,
       statement.id
     ]
 
@@ -10,7 +10,7 @@ function makeUpdateStatements (db) {
       UPDATE statements
       SET
         statement = $1,
-        order = $2
+        ordering = $2
       WHERE
         id = $3
       RETURNING

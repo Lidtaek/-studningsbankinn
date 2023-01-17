@@ -6,7 +6,7 @@ function makeSelectStatements (db) {
       SELECT
         id,
         statement,
-        order
+        ordering
       FROM
         statements
       WHERE 1=1`
@@ -18,7 +18,7 @@ function makeSelectStatements (db) {
 
     sql += `
       ORDER BY
-        order ASC,
+        ordering ASC,
         statement ASC`
 
     return db
