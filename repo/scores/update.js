@@ -1,19 +1,26 @@
 function makeUpdateScores (db) {
   return (score) => {
     const params = [
-      score.score,
+      score.yescount,
+      score.nocount,
+      score.nacount,
       score.placeId,
-      score.date      
+      score.questionCategoryId,
+      score.date
     ]
 
     const sql = `
       UPDATE scores
       SET
-        score = $1       
+        yescount = $1,
+        nocount = $2,
+        nacount = $3
       WHERE
-        placeid = $2
+        placeid = $4
       AND
-        date = $3`      
+        questioncategoryid = $5
+      AND
+        date = $6`
 
     return db
       .query(sql, params)

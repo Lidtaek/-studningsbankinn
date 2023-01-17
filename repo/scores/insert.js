@@ -6,7 +6,10 @@ function makeInsertScore (db) {
     const sql = `
       INSERT INTO scores(
         placeid,
-        score,
+        questioncategoryid,
+        yescount,
+        nocount,
+        nacount,
         date
       )
       VALUES ${tuples}`

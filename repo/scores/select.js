@@ -1,3 +1,4 @@
+const { toOrdinal } = require('pg-parameterize')
 function makeSelectScores (db) {
   return (options) => {
     const params = []
@@ -5,31 +6,47 @@ function makeSelectScores (db) {
     let sql = `
       SELECT
         s.placeid,
-        s.score,
+        s.questioncategoryid,
+        s.yescount,
+        s.nocount,
+        s.nacount,
         s.date,
-        p.name as placename
+        p.name as placename,
+        qc.name as questioncategoryname
       FROM
         scores s
       LEFT JOIN
         places p ON p.id = s.placeid
+      LEFT JOIN
+        questioncategories qc ON qc.id = s.questioncategoryid
       WHERE 1=1`
 
       if (options.date) {
         sql += ' AND date = ?'
         params.push(options.date)
       }
-      sql += `
+
+      if (options.placeId) {
+        sql += ' AND placeid = ?'
+        params.push(options.placeId)
+      }
+
+      sql += ` 
         ORDER BY
           s.date DESC,
           p.name ASC`
-
+    
     return db
-      .query(sql, params)
+      .query(toOrdinal(sql), params)
       .then(res => {
         return res.rows.map(row => ({
-          placeId: row.placeid,
+          placeId: row.placeid,          
           placeName: row.placename,
-          score: row.score,
+          questionCategoryId: row.questioncategoryid,
+          questionCategoryName: row.questioncategoryname,
+          yesCount: row.yescount,
+          noCount: row.nocount,
+          naCount: row.nacount,
           date: row.date
         }))
       })
