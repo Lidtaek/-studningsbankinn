@@ -5,7 +5,8 @@ function makeSelectStatements (db) {
     let sql = `
       SELECT
         id,
-        statement
+        statement,
+        order
       FROM
         statements
       WHERE 1=1`
@@ -17,6 +18,7 @@ function makeSelectStatements (db) {
 
     sql += `
       ORDER BY
+        order ASC,
         statement ASC`
 
     return db

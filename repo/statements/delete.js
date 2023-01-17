@@ -1,7 +1,7 @@
 function makeDeleteStatement (db) {
   return (statement ) => {
     const params = [
-      statement .id
+      statement.id
     ]
 
     const sql = `
