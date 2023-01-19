@@ -12,7 +12,7 @@ const pgPool = new pg.Pool({
   }
 })
 
-//const task = cron.schedule('0 0 1 * *', () => {
+const task = cron.schedule('0 0 15 * *', () => {
   console.log('starting job')
   const today = new Date().getFullYear() + '-' + new Date().getMonth()+1 + '-' + new Date().getDate()
   const selectAnswers = makeSelectAnswers(pgPool)
@@ -26,24 +26,23 @@ const pgPool = new pg.Pool({
         const line = [
           answer.placeId,
           answer.questionCategoryId,
-          0,
-          0,
-          0,
+          answer.answer === true ? 1 : 0,
+          answer.answer === false ? 1 : 0,
+          answer.answer === null ? 1 : 0,
           today
-        ]
+        ]        
 
         data.push(line)
+      } else {
+        last[2] += answer.answer === true ? 1 : 0
+        last[3] += answer.answer === false ? 1 : 0
+        last[4] += answer.answer === null ? 1 : 0
       }
-
-      last[2] += answer.answer === true ? 1 : 0
-      last[3] += answer.answer === false ? 1 : 0
-      last[4] += answer.answer === null ? 1 : 0
-    })    
-    
+    })        
     return insertScores(data).then(() => {
       console.log('inserted scores')
     })
   })
-//})
+})
 
-// task.start()
+task.start()
