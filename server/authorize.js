@@ -8,15 +8,23 @@ function makeAuthorize (redisClient, pgPool, logger) {
   const setUser = makeSetUser(redisClient)
   const selectUser = makeSelectUser(pgPool)
 
+  const drasl = parseCookie(headers.cookie).STUDNINGSBANKINN_API
+  logger.info('drasl', drasl)
+
   return function authorize () {
+    logger.info('authorizing')
     return (req, res, next) => {
       const token = getToken(req.headers)
+      logger.info('token', token)
 
       if (token) {
+        logger.info('found token')
         return getUser(token)
           .then(reply => {
-            if (!reply) {
+            logger.info('redis reply', reply)
+            if (!reply) {              
               return selectUser({ token }).then(users => {
+                logger.info('getting user from db', users)
                 if (users.length === 1) {
                   req.user = users[0]
                   setUser(users[0])
@@ -36,13 +44,14 @@ function makeAuthorize (redisClient, pgPool, logger) {
             return res.sendStatus(401)
           })
       } else {
+        logger.info('no token in headers')
         return res.sendStatus(401)
       }
     }
   }
 }
 
-function getToken (headers) {
+function getToken (headers) {  
   let token
   if (headers.cookie) {
     token = parseCookie(headers.cookie).STUDNINGSBANKINN_API
