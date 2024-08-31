@@ -1,5 +1,4 @@
 const Router = require('express').Router
-const authorize = require('../server/authorize')
 
 function makeCrudRouter (select, insert, update, del) {
   const router = Router()
@@ -10,7 +9,7 @@ function makeCrudRouter (select, insert, update, del) {
       .catch(next)
   })
 
-  router.put('/', authorize(), (req, res, next) => {
+  router.put('/', (req, res, next) => {
     if (req.user && req.user.id) {
       return update(req.body)
         .then(obj => res.json(obj))
@@ -20,7 +19,7 @@ function makeCrudRouter (select, insert, update, del) {
     res.sendStatus(401)
   })
 
-  router.post('/', authorize(), (req, res, next) => {
+  router.post('/', (req, res, next) => {
     if (req.user && req.user.isAdmin) {
       return insert(req.body, req.user)
         .then(obj => res.json(obj))
@@ -30,7 +29,7 @@ function makeCrudRouter (select, insert, update, del) {
     res.sendStatus(401)
   })
 
-  router.delete('/', authorize(), (req, res, next) => {
+  router.delete('/', (req, res, next) => {
     if (req.user && req.user.isAdmin) {
       return del(req.body)
         .then(obj => res.json(obj))
