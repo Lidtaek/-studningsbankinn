@@ -8,7 +8,7 @@ function makeAuthorize (redisClient, pgPool, logger) {
   const setUser = makeSetUser(redisClient)
   const selectUser = makeSelectUser(pgPool)
 
-  const drasl = parseCookie(headers.cookie).STUDNINGSBANKINN_API
+  const drasl = parseCookie(req.headers.cookie).STUDNINGSBANKINN_API
   logger.info('drasl', drasl)
 
   return function authorize () {
