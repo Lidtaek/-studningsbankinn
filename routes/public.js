@@ -5,7 +5,7 @@ function makePublicRouter (select, insert, update, del, logger) {
 
   router.get('/', (req, res, next) => {
     logger.info('public route')
-    logger.info('user', req.user)    
+    logger.info('user', { user: req.user })    
     return select(req.query, req.user)
       .then(list => res.json(list))
       .catch(next)

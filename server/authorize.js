@@ -12,18 +12,18 @@ function makeAuthorize (redisClient, pgPool, logger) {
   return function authorize () {
     logger.info('authorizing')
     return (req, res, next) => {
-      logger.info('headers', req.headers)
+      logger.info('headers', { 'headers': req.headers })
       const token = getToken(req.headers)
-      logger.info('token', token)
+      logger.info('token', { token })
 
       if (token) {
         logger.info('found token')
         return getUser(token)
           .then(reply => {
-            logger.info('redis reply', reply)
+            logger.info('redis reply', { reply })
             if (!reply) {              
               return selectUser({ token }).then(users => {
-                logger.info('getting user from db', users)
+                logger.info('getting user from db', { users })
                 if (users.length === 1) {
                   req.user = users[0]
                   setUser(users[0])
