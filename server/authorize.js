@@ -8,12 +8,11 @@ function makeAuthorize (redisClient, pgPool, logger) {
   const setUser = makeSetUser(redisClient)
   const selectUser = makeSelectUser(pgPool)
 
-  const drasl = parseCookie(req.headers.cookie).STUDNINGSBANKINN_API
-  logger.info('drasl', drasl)
 
   return function authorize () {
     logger.info('authorizing')
     return (req, res, next) => {
+      logger.info('headers', req.headers)
       const token = getToken(req.headers)
       logger.info('token', token)
 
