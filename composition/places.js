@@ -1,5 +1,5 @@
 
-function makePlacesComposition (db) {
+function makePlacesComposition (db, logger) {
   const makeSelectPlaces = require('../repo/places/select')
   const makeInsertPlaces = require('../repo/places/insert')
   const makeUpdatePlaces = require('../repo/places/update')
@@ -10,7 +10,7 @@ function makePlacesComposition (db) {
   const insertPlaces = makeInsertPlaces(db)
   const updatePlaces = makeUpdatePlaces(db)
   const deletePlaces = makeDeletePlaces(db)
-  return makePublicRouter(selectPlaces, insertPlaces, updatePlaces, deletePlaces)
+  return makePublicRouter(selectPlaces, insertPlaces, updatePlaces, deletePlaces, logger)
 }
 
 module.exports = makePlacesComposition
