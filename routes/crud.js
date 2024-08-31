@@ -1,4 +1,5 @@
 const Router = require('express').Router
+const authorize = require('../server/authorize')
 
 function makeCrudRouter (select, insert, update, del) {
   const router = Router()
