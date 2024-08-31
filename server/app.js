@@ -21,6 +21,7 @@ function createApp (isProduction, logger) {
     }))
     app.use(compression())    
   }
+  app.use(cors())
 /*
   app.use(cors({
     origin: corsOrigin(isProduction, logger),
