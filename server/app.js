@@ -21,11 +21,12 @@ function createApp (isProduction, logger) {
     }))
     app.use(compression())    
   }
-
+/*
   app.use(cors({
     origin: corsOrigin(isProduction, logger),
     credentials: true
   }))
+*/
   app.use(bodyParser.json({ limit: '40mb' }))
   app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }))
 

@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const pg = require('pg')
 const redis = require('redis')
-const logger = require('heroku-logger')
+const logger = require('pino')()
 const createApp = require('./app')
 const makeAuthorize = require('./authorize')
 const makePlacesComposition = require('../composition/places')
