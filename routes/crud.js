@@ -8,7 +8,7 @@ function makeCrudRouter (select, insert, update, del) {
       .then(list => res.json(list))
       .catch(next)
   })
-
+/*
   router.put('/', (req, res, next) => {
     if (req.user && req.user.id) {
       return update(req.body)
@@ -38,6 +38,7 @@ function makeCrudRouter (select, insert, update, del) {
 
     res.sendStatus(401)
   })
+*/
 
   return router
 }

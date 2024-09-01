@@ -1,8 +1,10 @@
 function makeSelectAnswers (db) {
   return (options, user, ipAddress) => {
+    /*
     if (!(user && user.id)) {
       return Promise.resolve([])
     }
+    */
     const params = [ipAddress]
     let sql = `
       SELECT      
@@ -39,7 +41,7 @@ function makeSelectAnswers (db) {
         votes uv ON a.id = uv.answerid AND uv.ipaddress = $1
       WHERE
         qn.use = true`
-
+/*
     if (user.isPlace) {
       sql += ' AND p.id = $2'
       params.push(user.placeId)
@@ -56,6 +58,12 @@ function makeSelectAnswers (db) {
     }
 
     if (user.isAdmin && options.placeId) {
+      sql += ' AND p.id = $2'
+      params.push(options.placeId)
+    }
+      */
+
+    if (options.placeId) {
       sql += ' AND p.id = $2'
       params.push(options.placeId)
     }

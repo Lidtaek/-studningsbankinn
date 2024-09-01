@@ -1,8 +1,10 @@
 function makeSelectPlaces (db) {
   return (options, user) => {
+    /*
     if (!(user && user.id)) {
       return Promise.resolve([])
     }
+      */
 
     const params = []
 
@@ -30,13 +32,13 @@ function makeSelectPlaces (db) {
         users u ON u.placeid = p.id
       WHERE
         1 = 1`
-
+/*
     const placeId = user.placeId || options.id
     if (placeId) {
       sql += 'AND p.id = $1'
       params.push(placeId)
     }
-
+*/
     sql += `
       ORDER BY
         p.name ASC`
@@ -58,7 +60,7 @@ function makeSelectPlaces (db) {
           email: row.email,
           categoryId: row.categoryid,
           categoryName: row.categoryname,
-          userToken: (user.isAdmin || user.isOrganization) ? row.usertoken : undefined
+          // userToken: (user.isAdmin || user.isOrganization) ? row.usertoken : undefined
         }))
       })
   }

@@ -9,6 +9,7 @@ function makePublicRouter (select, insert, update, del, logger) {
       .catch(next)
   })
 
+  /*
   router.put('/', (req, res, next) => {
     if (req.user) {
       return update(req.body, req.user)
@@ -38,7 +39,7 @@ function makePublicRouter (select, insert, update, del, logger) {
 
     res.sendStatus(401)
   })
-
+*/
   return router
 }
 
