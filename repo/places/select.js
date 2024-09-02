@@ -32,6 +32,11 @@ function makeSelectPlaces (db) {
         users u ON u.placeid = p.id
       WHERE
         1 = 1`
+      
+    if (options.id) {
+      sql += ' AND p.id = $1'
+      params.push(options.id)
+    }
 /*
     const placeId = user.placeId || options.id
     if (placeId) {

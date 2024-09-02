@@ -16,7 +16,12 @@ function makeSelectQuestions (db) {
         1 = 1`
 
     if (options.id) {
-      sql += 'AND q.id = $1'
+      sql += ' AND q.id = $1'
+      params.push(options.id)
+    }
+
+    if (options.categoryId) {
+      sql += ' AND q.categoryid = $1'
       params.push(options.id)
     }
 

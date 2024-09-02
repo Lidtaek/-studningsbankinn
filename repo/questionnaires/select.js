@@ -1,4 +1,4 @@
-function makeSelectQuestionnaire (db) {
+cdfunction makeSelectQuestionnaire (db) {
   return (options, user) => {
     const params = []
 
