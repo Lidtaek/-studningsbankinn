@@ -68,6 +68,11 @@ function makeSelectAnswers (db) {
       params.push(options.placeId)
     }
 
+    if (options.questionId) {
+      sql += ' AND a.answer = true AND q.id = ANY($2)'
+      params.push(options.questionId)
+    }
+
     sql += `
       GROUP BY
         qn.questionid,
